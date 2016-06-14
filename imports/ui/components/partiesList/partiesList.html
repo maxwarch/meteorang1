@@ -1,11 +1,11 @@
 <party-add></party-add>
 
-<ul>
-  <li ng-repeat="party in partiesList.parties">
-    <a ui-sref="partyDetails({ partyId: party._id })">
-      {{party.name}}
-    </a>
-    <p>{{party.description}}</p>
-    <party-remove party="party"></party-remove>
-  </li>
-</ul>
+<div class="container">
+	<div class="list-group">
+		<a  ui-sref="partyDetails({ partyId: party._id })" class="list-group-item" ng-repeat="party in partiesList.parties">
+			<h4 class="list-group-item-heading">{{party.name}}</h4>
+			<p>{{party.description}}</p>
+			<party-remove party="party"></party-remove>
+		</a>
+	</div>
+</div>
