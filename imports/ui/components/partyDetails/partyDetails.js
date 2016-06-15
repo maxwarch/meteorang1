@@ -6,7 +6,7 @@ import template from './partyDetails.html';
 
 class PartyDetails {
   constructor($stateParams) {
-
+    'ngInject';
     this.partyId = $stateParams.partyId;
   }
 }
@@ -17,18 +17,17 @@ const name = 'partyDetails';
 export default angular.module(name, [
   angularMeteor,
   uiRouter
-]).component(name, {
-  templateUrl:template,
-  controllerAs: name,
-  controller: PartyDetails
-})
-  .config(config);
+])
 
-function config($stateProvider) {
+.config(function($stateProvider) {
   'ngInject';
 
-  $stateProvider.state('partyDetails', {
-    url: '/parties/:partyId',
-    template: '<party-details></party-details>'
+  $stateProvider.state('details', {
+      parent:'parties',
+      name:'parties.details',
+      url: '/:partyId',
+      templateUrl: template,
+      controllerAs: name,
+      controller: PartyDetails
   });
-}
+})

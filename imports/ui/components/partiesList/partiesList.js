@@ -3,9 +3,11 @@ import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 
 import template from './partiesList.html';
-import { Parties } from '../../../api/parties';
+import templateDetails from '../partyDetails/partyDetails.html';
+import { name as PartyDetails } from '../partyDetails/partyDetails';
 import { name as PartyAdd } from '../partyAdd/partyAdd';
-import { name as PartyRemove } from '../partyRemove/partyRemove';
+
+import { Parties } from '../../../api/parties';
 
 class PartiesList {
   constructor($scope, $reactive) {
@@ -19,6 +21,12 @@ class PartiesList {
       }
     });
   }
+
+  remove(party) { 
+    if (party) {
+      Parties.remove(party._id);
+    }
+  }
 }
 
 const name = 'partiesList';
@@ -28,19 +36,24 @@ export default angular.module(name, [
   angularMeteor,
   uiRouter,
   PartyAdd,
-  PartyRemove
-]).component(name, {
-  templateUrl:template,
-  controllerAs: name,
-  controller: PartiesList
-})
-  .config(config);
+  PartyDetails
+])
 
-function config($stateProvider) {
+.config(function($stateProvider) {
   'ngInject';
+
   $stateProvider
     .state('parties', {
-      url: '/parties',
-      template: '<parties-list></parties-list>'
-    });
-}
+        url: '/parties',
+        controllerAs: name,
+        controller: PartiesList,
+        templateUrl: template
+    })
+    /*.state('details', {
+        parent:'parties',
+        url: '/:partyId',
+        templateUrl: templateDetails,
+        controller:PartyDetails,
+        controllerAs:'partyDetails'
+    });*/
+})
