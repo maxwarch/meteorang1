@@ -22,7 +22,9 @@ Meteor.startup(() => {
 
 
 Accounts.onCreateUser(function(options, user) {
-  console.log(options)
-  console.log(user)
-    _.extend(user, options); // OR user.someField = 'initialValue';
+   // Use provided profile in options, or create an empty object
+   user.profile = options.profile || {};
+   // Assigns first and last names to the newly created user object
+   _.extend(user.profile, options.profile);
+   return user;
 });

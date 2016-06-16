@@ -20,8 +20,11 @@ class Register{
 		this.infos = {
 			email:'fghf@' + _.now() + '.com',
 			password:'321321',
-			nom:'nom-' + _.now(),
-			prenom:'prenom-' + _.now()
+			profile:{
+				nom:'nom-' + _.now(),
+				prenom:'prenom-' + _.now(),
+				pseudo:'pseudo-' + _.now()
+			}
 		}
 
 		this.error = null

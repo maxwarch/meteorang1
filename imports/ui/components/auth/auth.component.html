@@ -1,9 +1,9 @@
 <ul class="nav navbar-nav navbar-right">
 	<li ng-show="!authButton.isLoggedIn" ui-sref-active="active"><a ui-sref="auth">Login</a></li>
 	<li class="dropdown" ng-show="authButton.isLoggedIn">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ authButton.currentUser.emails[0].address }} <span class="caret"></span></a>
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ authButton.currentUser.profile.pseudo }} <span class="caret"></span></a>
 		<ul class="dropdown-menu">
-			<li><a href="#">Separated link</a></li>
+			<li><a ui-sref="moncompte">Mon compte</a></li>
 			<li role="separator" class="divider"></li>
 			<li><a href="#" ng-click="authButton.logout()">Déconnexion</a></li>
 		</ul>

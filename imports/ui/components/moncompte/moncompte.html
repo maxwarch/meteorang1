@@ -1,0 +1,17 @@
+<div class="container">
+	<form ng-submit="moncompte.update($event)">
+		<legend>Mon compte</legend>
+	
+		<div class="form-group">
+			<label for="nom">Nom</label>
+			<input type="text" ng-model="moncompte.currentUser.profile.nom" class="form-control" id="nom" placeholder="Votre nom">
+		</div>
+	
+		<div class="form-group">
+			<label for="prenom">Prénom</label>
+			<input type="text" ng-model="moncompte.currentUser.profile.prenom" class="form-control" id="prenom" placeholder="Votre prénom">
+		</div>
+		
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>

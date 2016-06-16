@@ -5,6 +5,7 @@ import uiRouter from 'angular-ui-router';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
+import { name as MonCompte } from '../moncompte/moncompte';
 import template from './auth.component.html';
 
 class AuthButton{
@@ -34,7 +35,7 @@ class AuthButton{
 
 const name = 'authButton';
 
-export default angular.module(name, [angularMeteor])
+export default angular.module(name, [angularMeteor, MonCompte])
 
 .component(name, {
 	templateUrl:template,
