@@ -4,7 +4,8 @@ import uiRouter from 'angular-ui-router';
 
 import template from './navigation.html';
 import { name as PartiesList } from '../partiesList/partiesList';
-import { name as PartyDetails } from '../partyDetails/partyDetails';
+import { name as Auth } from '../auth/auth';
+import { name as AuthButton } from '../auth/auth.component';
 
 class Navigation{
 	constructor($scope, $reactive, $state, $rootScope){
@@ -22,7 +23,8 @@ const name = 'navigation';
 export default angular.module(name, [
   angularMeteor,
   PartiesList,
-  //PartyDetails
+  Auth,
+  AuthButton
 ])
 
 .component(name, {

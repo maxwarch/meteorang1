@@ -1,17 +1,24 @@
 <party-add></party-add>
 
 <div class="container">
-	<div class="list-group">
-		<a  ui-sref="details({ partyId: party._id })" class="list-group-item" ng-repeat="party in partiesList.parties">
-			<div class="row">
-				<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-					<h4 class="list-group-item-heading">{{party.name}}</h4>
-					<p>{{party.description}}</p>
-				</div>
-				<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-					<button ng-click="partiesList.remove(party)" class="btn btn-xs btn-danger">X</button>
-				</div>
+	<div class="row">
+		<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+			<div class="list-group">
+				<a  ui-sref="details({ partyId: party._id })" class="list-group-item" ng-repeat="party in partiesList.parties">
+					<div class="row">
+						<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+							<h4 class="list-group-item-heading">{{party.name}}</h4>
+							<p>{{party.description}}</p>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button ng-click="partiesList.remove(party)" class="btn btn-xs btn-danger">X</button>
+						</div>
+					</div>
+				</a>
 			</div>
-		</a>
+		</div>
+		<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+			<div ui-view></div>
+		</div>
 	</div>
 </div>

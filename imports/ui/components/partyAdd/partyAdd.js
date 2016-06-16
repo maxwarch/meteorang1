@@ -10,6 +10,7 @@ class PartyAdd {
   }
 
   submit() {
+    this.party.owner = Meteor.user()._id;
     Parties.insert(this.party);
     this.reset();
   }

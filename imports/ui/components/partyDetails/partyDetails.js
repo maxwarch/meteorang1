@@ -24,7 +24,6 @@ export default angular.module(name, [
 
   $stateProvider.state('details', {
       parent:'parties',
-      name:'parties.details',
       url: '/:partyId',
       templateUrl: template,
       controllerAs: name,

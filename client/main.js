@@ -2,10 +2,10 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 
-import template from './index.html';
 import { name as Navigation } from '../imports/ui/components/navigation/navigation';
 import { name as Home } from '../imports/ui/components/home/home';
-import { HomeTpl } from '../imports/ui/components/home/home.html';
+
+_ = lodash;
 
 class App {
 	constructor($rootScope, $state){
@@ -35,18 +35,11 @@ export default angular.module(name, [
   $stateProvider
   	.state('app', {
       	url: '/',
-      	templateUrl: template,
-        controller:App
-    })
-    .state('home', {
-      	url: '/home',
-      	templateUrl: HomeTpl,
-        controller:Home,
-        controllerAs:'home'
-    })
+      	template: '<home></home>'
+    });
 
   $locationProvider.html5Mode(true);
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/');
 })
 
 .run(function($rootScope, $state) {

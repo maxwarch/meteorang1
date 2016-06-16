@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-md-offset-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">Connexion</div>
+			<div class="panel-body">
+				<div class="alert alert-danger" ng-show="auth.error">Impossible de vous identifier</div>
+				<form name="loginForm" ng-submit="auth.login()">
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" ng-model="auth.credentials.email" class="form-control" id="email" placeholder="Email" required>
+					</div>
+					<div class="form-group">
+						<label for="password">Mot de passe</label>
+						<input type="password" ng-model="auth.credentials.password" class="form-control" id="password" placeholder="Mot de passe" required>
+					</div>
+					<button type="submit" class="btn btn-default" ng-disabled="loginForm.$invalid">OK</button>
+					<a ui-sref="register">S'enregistrer</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

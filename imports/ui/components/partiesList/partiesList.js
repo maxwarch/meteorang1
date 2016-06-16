@@ -39,7 +39,7 @@ export default angular.module(name, [
   PartyDetails
 ])
 
-.config(function($stateProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
   'ngInject';
 
   $stateProvider
@@ -49,11 +49,4 @@ export default angular.module(name, [
         controller: PartiesList,
         templateUrl: template
     })
-    /*.state('details', {
-        parent:'parties',
-        url: '/:partyId',
-        templateUrl: templateDetails,
-        controller:PartyDetails,
-        controllerAs:'partyDetails'
-    });*/
 })

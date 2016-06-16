@@ -1,6 +1,8 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 
+import template from './home.html';
+
 class Home{}
 
 const name = 'home';
@@ -9,3 +11,8 @@ const name = 'home';
 export default angular.module(name, [
   angularMeteor
 ])
+.component(name, {
+	templateUrl:template,
+	controller:Home,
+	controllerAs:name
+})

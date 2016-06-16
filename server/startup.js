@@ -19,3 +19,10 @@ Meteor.startup(() => {
     });
   }
 });
+
+
+Accounts.onCreateUser(function(options, user) {
+  console.log(options)
+  console.log(user)
+    _.extend(user, options); // OR user.someField = 'initialValue';
+});
