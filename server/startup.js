@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Parties } from '../imports/api/parties';
+//import { Users } from '../imports/api/users';
 
 Meteor.startup(() => {
   if (Parties.find().count() === 0) {
@@ -20,11 +21,19 @@ Meteor.startup(() => {
   }
 });
 
+Meteor.methods({
+  getUser:(id) => {
+    let data = Meteor.users.findOne({_id:id});
+    if(!!data){
+      return data
+    }else{
+      throw new Meteor.Error('nouser');
+    } 
+  }
+});
 
 Accounts.onCreateUser(function(options, user) {
-   // Use provided profile in options, or create an empty object
    user.profile = options.profile || {};
-   // Assigns first and last names to the newly created user object
    _.extend(user.profile, options.profile);
    return user;
 });

@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
@@ -7,7 +8,7 @@ import templateDetails from '../partyDetails/partyDetails.html';
 import { name as PartyDetails } from '../partyDetails/partyDetails';
 import { name as PartyAdd } from '../partyAdd/partyAdd';
 
-import { Parties } from '../../../api/parties';
+import { Parties } from '../../../api/parties/index';
 
 class PartiesList {
   constructor($scope, $reactive) {
@@ -15,11 +16,18 @@ class PartiesList {
 
     $reactive(this).attach($scope);
 
+    if(!!Meteor.userId()) this.subscribe('parties');
+    this.myId = Meteor.userId();
+
     this.helpers({
       parties() {
         return Parties.find({});
       }
     });
+  }
+
+  setPrivate(party){
+    Parties.update(party._id, {$set:{public : party.public}});
   }
 
   remove(party) { 

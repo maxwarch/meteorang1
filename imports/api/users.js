@@ -6,6 +6,7 @@ export const Users = Meteor.users;
 
 Users.allow({
 	update(userId, user, fields, modifier) {
-		return Meteor.userId() === userId;
+		console.log(this.userId)
+		return this.userId === userId;
 	}
 });
