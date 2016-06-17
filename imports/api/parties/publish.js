@@ -15,7 +15,19 @@ if (Meteor.isServer){
 						        $and: [{ owner: this.userId }, { owner: { $exists: true }} ]
 						    }]
 						};
+		//console.log(Parties.find(selector).fetch())
+		//return Parties.find(selector);
+		let d = Parties
+				.find(selector)
+				.forEach(function(item){
+					item.user = Meteor.users.findOne({_id:item.owner}, {fields:{profile:1}})
+					console.log(item)
+				});
+		return (d)
+		this.ready();
+	});
 
-		return Parties.find(selector);
+	Meteor.publish('auteurs', function(userIds) {
+	  	return Meteor.users.find({_id: {$in: userIds}});
 	});
 }

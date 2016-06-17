@@ -15,13 +15,15 @@ class PartiesList {
     'ngInject';
 
     $reactive(this).attach($scope);
-
-    if(!!Meteor.userId()) this.subscribe('parties');
+    
+    this.subscribe('parties');
+    
     this.myId = Meteor.userId();
 
     this.helpers({
       parties() {
-        return Parties.find({});
+        console.log(Parties.find())
+        return Parties.find();
       }
     });
   }
