@@ -28,7 +28,7 @@ class MonCompte{
 
 	update(data){
 		console.log(data)
-		//Users.update(Meteor.userId(), this.user);
+		Users.update(Meteor.userId(), this.user);
 	}
 }
 
