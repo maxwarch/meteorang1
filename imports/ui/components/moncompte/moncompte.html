@@ -1,0 +1,25 @@
+<div class="container">
+	<form ng-submit="moncompte.update()" name="registerForm">
+		<legend>Mon compte</legend>
+	
+		<div class="form-group" ng-class="{'has-warning':registerForm.pseudo.$invalid}">
+			<label for="pseudo">Pseudo</label>
+			<input type="text" ng-model="moncompte.user.profile.pseudo" class="form-control" id="pseudo" placeholder="Votre pseudo" name="pseudo" required>
+		</div>
+
+		<div class="form-group" ng-class="{'has-warning':registerForm.nom.$invalid}">
+			<label for="nom">Nom</label>
+			<input type="text" ng-model="moncompte.user.profile.nom" class="form-control" id="nom" placeholder="Votre nom" name="nom" required>
+		</div>
+	
+		<div class="form-group" ng-class="{'has-warning':registerForm.prenom.$invalid}">
+			<label for="prenom">Prénom</label>
+			<input type="text" ng-model="moncompte.user.profile.prenom" class="form-control" id="prenom" placeholder="Votre prénom" name="prenom" required>
+		</div>
+		<div class="alert alert-success" ng-show="moncompte.successVisible">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<strong>La mise à jour est OK</strong>
+		</div>
+		<button type="submit" class="btn btn-primary" ng-disabled="registerForm.$invalid || registerForm.$pristine">OK</button>
+	</form>
+</div>

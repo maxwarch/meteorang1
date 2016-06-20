@@ -1,14 +1,34 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import uiRouter from 'angular-ui-router';
 
 import template from './navigation.html';
+import { name as PartiesList } from '../partiesList/partiesList';
+import { name as Auth } from '../auth/auth';
+import { name as AuthButton } from '../auth/auth.component';
+
+class Navigation{
+	constructor($scope, $reactive, $state, $rootScope){
+		'ngInject';
+		$reactive(this).attach($scope);
+		this.helpers({
+			
+		})
+	}
+}
 
 const name = 'navigation';
 
 // create a module
 export default angular.module(name, [
-  angularMeteor
-]).component(name, {
+  angularMeteor,
+  PartiesList,
+  Auth,
+  AuthButton
+])
+
+.component(name, {
   templateUrl:template,
-  controllerAs: name
-});
+  controllerAs: name,
+  controller:Navigation
+})
