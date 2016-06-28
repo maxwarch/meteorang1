@@ -16,13 +16,15 @@ class PartiesList {
 
     $reactive(this).attach($scope);
     
-    this.subscribe('parties');
+    this.subscribe('parties', function(d){
+      console.log(Parties.find().fetch())
+    });
     
     this.myId = Meteor.userId();
 
     this.helpers({
       parties() {
-        console.log(Parties.find())
+        
         return Parties.find();
       }
     });
