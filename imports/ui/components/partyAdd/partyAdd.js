@@ -11,6 +11,7 @@ class PartyAdd {
 
   submit() {
     this.party.owner = Meteor.user()._id;
+    this.party.public = false;
     Parties.insert(this.party);
     this.reset();
   }

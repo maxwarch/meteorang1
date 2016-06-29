@@ -8,26 +8,28 @@ import templateDetails from '../partyDetails/partyDetails.html';
 import { name as PartyDetails } from '../partyDetails/partyDetails';
 import { name as PartyAdd } from '../partyAdd/partyAdd';
 
-import { Parties } from '../../../api/parties/index';
+import { Parties, Auteurs } from '../../../api/parties/index';
 
 class PartiesList {
   constructor($scope, $reactive) {
     'ngInject';
 
     $reactive(this).attach($scope);
-    
-    this.subscribe('parties', function(d){
-      console.log(Parties.find().fetch())
-    });
-    
-    this.myId = Meteor.userId();
+
+    this.subscribe('parties');
 
     this.helpers({
       parties() {
-        
         return Parties.find();
+      },
+      myId(){
+        return Meteor.userId();
       }
     });
+  }
+
+  auteur(id){
+    return Auteurs.findOne(id); 
   }
 
   setPrivate(party){

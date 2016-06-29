@@ -7,6 +7,7 @@
 				<div class="list-group-item" ng-repeat="party in partiesList.parties">
 					<div class="row">
 						<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+
 							<div class="checkbox" ng-show="party.owner === partiesList.myId">
 								<label>
 									<input type="checkbox" ng-model="party.public" ng-change="partiesList.setPrivate(party)">
@@ -17,7 +18,7 @@
 								<h4 class="list-group-item-heading">{{party.name}}</h4>
 							</a>
 							<p>{{party.description}}</p>
-							<em>de : {{ party.user.profile.pseudo }}</em>
+							<em>de : {{ partiesList.auteur(party.owner).profile.pseudo }}</em>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<button ng-click="partiesList.remove(party)" class="btn btn-xs btn-danger">X</button>
