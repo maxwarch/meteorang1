@@ -4,16 +4,16 @@ import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 
 import template from './partiesList.html';
-import templateDetails from '../partyDetails/partyDetails.html';
 import { name as PartyDetails } from '../partyDetails/partyDetails';
 import { name as PartyAdd } from '../partyAdd/partyAdd';
 
 import { name as partiesService } from '../../../api/parties/parties.service';
 
 class PartiesList {
-  constructor($scope, $reactive, partiesService) {
+  constructor($scope, $reactive, $state, $rootScope, partiesService) {
     'ngInject';
 
+    $rootScope.$state = $state;
     this.partiesService = partiesService;
     $reactive(this).attach($scope);
 

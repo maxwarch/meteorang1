@@ -1,3 +1,12 @@
-<p>{{ party }}</p>
-<p>{{ party.description }}</p>
-<em>de : {{ partyDetails.auteur(party.owner).profile.pseudo }}</em>
+<div class="container-fluid">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ partyDetails.party.name }}</h3>
+		</div>
+		<div class="panel-body">
+			<p>{{ partyDetails.party.description }}</p>
+			<em>de : {{ partyDetails.auteur(partyDetails.party.owner).profile.pseudo }}</em>
+		</div>
+	</div>
+	<button type="button" class="btn btn-default" onclick="window.history.back()">Retour</button>
+</div>

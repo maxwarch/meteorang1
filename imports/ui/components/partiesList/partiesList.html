@@ -1,8 +1,7 @@
-<party-add></party-add>
-
+<party-add ng-show="$state.is('parties')"></party-add>
 <div class="container">
-	<div class="row">
-		<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+	<div class="row" ng-show="$state.is('parties')">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<div class="list-group">
 				<div class="list-group-item" ng-repeat="party in partiesList.parties">
 					<div class="row">
@@ -27,7 +26,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+	</div>
+	<div class="row" ng-show="$state.is('details')">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<div ui-view></div>
 		</div>
 	</div>

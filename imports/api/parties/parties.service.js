@@ -16,7 +16,6 @@ export default angular.module(name, [])
 	}
 
 	this.getAuteur = function(id){
-
 		return Auteurs.findOne(id);
 	}
 

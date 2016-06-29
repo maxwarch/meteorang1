@@ -17,14 +17,13 @@ class PartyDetails {
 
     this.helpers({
       party(){
-        console.log(partiesService.getParties($stateParams.partyId))
         return partiesService.getParties($stateParams.partyId); 
       }
     });
   }
 
-  auteur(){
-    return this.partiesService.getAuteur(this.$stateParams.partyId); 
+  auteur(id){
+    return this.partiesService.getAuteur(id); 
   }
 }
 
@@ -41,8 +40,8 @@ export default angular.module(name, [
   'ngInject';
 
   $stateProvider.state('details', {
-      //parent:'parties',
-      url: '/parties/:partyId',
+      parent:'parties',
+      url: '/:partyId',
       templateUrl: template,
       controllerAs: name,
       controller: PartyDetails,
