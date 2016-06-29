@@ -8,19 +8,18 @@ import templateDetails from '../partyDetails/partyDetails.html';
 import { name as PartyDetails } from '../partyDetails/partyDetails';
 import { name as PartyAdd } from '../partyAdd/partyAdd';
 
-import { Parties, Auteurs } from '../../../api/parties/index';
+import { name as partiesService } from '../../../api/parties/parties.service';
 
 class PartiesList {
-  constructor($scope, $reactive) {
+  constructor($scope, $reactive, partiesService) {
     'ngInject';
 
+    this.partiesService = partiesService;
     $reactive(this).attach($scope);
-
-    this.subscribe('parties');
 
     this.helpers({
       parties() {
-        return Parties.find();
+        return partiesService.getParties();
       },
       myId(){
         return Meteor.userId();
@@ -29,17 +28,15 @@ class PartiesList {
   }
 
   auteur(id){
-    return Auteurs.findOne(id); 
+    return this.partiesService.getAuteur(id);
   }
 
   setPrivate(party){
-    Parties.update(party._id, {$set:{public : party.public}});
+    this.partiesService.setPrivate(party);
   }
 
   remove(party) { 
-    if (party) {
-      Parties.remove(party._id);
-    }
+    this.partiesService.remove(party);
   }
 }
 
@@ -50,7 +47,8 @@ export default angular.module(name, [
   angularMeteor,
   uiRouter,
   PartyAdd,
-  PartyDetails
+  PartyDetails,
+  partiesService
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {

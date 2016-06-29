@@ -4,26 +4,27 @@ import uiRouter from 'angular-ui-router';
 
 import template from './partyDetails.html';
 
-import { Parties, Auteurs } from '../../../api/parties/index';
+import { name as partiesService } from '../../../api/parties/parties.service';
 
 class PartyDetails {
-  constructor($stateParams, $scope, $reactive, p) {
+  constructor($stateParams, $scope, $reactive, partiesService) {
     'ngInject';
 
+    this.$stateParams = $stateParams;
+    this.partiesService = partiesService;
+
     $reactive(this).attach($scope);
-    
-    this.subscribe('parties');
 
     this.helpers({
       party(){
-        console.log(Parties.findOne($stateParams.partyId))
-        return Parties.findOne($stateParams.partyId); 
+        console.log(partiesService.getParties($stateParams.partyId))
+        return partiesService.getParties($stateParams.partyId); 
       }
     });
   }
 
-  auteur(id){
-    return Auteurs.findOne(id); 
+  auteur(){
+    return this.partiesService.getAuteur(this.$stateParams.partyId); 
   }
 }
 
@@ -32,19 +33,20 @@ const name = 'partyDetails';
 // create a module
 export default angular.module(name, [
   angularMeteor,
-  uiRouter
+  uiRouter,
+  partiesService
 ])
 
-.config(function($stateProvider, $q) {
+.config(function($stateProvider) {
   'ngInject';
 
   $stateProvider.state('details', {
-      parent:'parties',
-      url: '/:partyId',
+      //parent:'parties',
+      url: '/parties/:partyId',
       templateUrl: template,
       controllerAs: name,
       controller: PartyDetails,
-      resolve:{
+      /*resolve:{
         p:function($q){
           var deferred = $q.defer();
    
@@ -55,6 +57,6 @@ export default angular.module(name, [
      
           return deferred.promise;
         }
-      }
+      }*/
   });
 })

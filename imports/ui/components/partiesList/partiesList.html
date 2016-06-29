@@ -20,7 +20,7 @@
 							<p>{{party.description}}</p>
 							<em>de : {{ partiesList.auteur(party.owner).profile.pseudo }}</em>
 						</div>
-						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="party.owner === partiesList.myId">
 							<button ng-click="partiesList.remove(party)" class="btn btn-xs btn-danger">X</button>
 						</div>
 					</div>

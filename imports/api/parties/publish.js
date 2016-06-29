@@ -3,7 +3,11 @@ import { Meteor } from 'meteor/meteor';
 import { Parties } from './collection';
 
 if (Meteor.isServer){
-	const selector = {
+	
+
+	Meteor.publishComposite('parties', {
+	    find: function() {
+	    	const selector = {
 							$or: [
 							{
 					        	// the public parties
@@ -14,9 +18,6 @@ if (Meteor.isServer){
 						        $and: [{ owner: this.userId }, { owner: { $exists: true }} ]
 						    }]
 						};
-
-	Meteor.publishComposite('parties', {
-	    find: function() {
 	        return Parties.find(selector)
 	    },
 	    children: [
