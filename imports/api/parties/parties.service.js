@@ -32,7 +32,6 @@ export default angular.module(name, [])
 	      	console.log(party)
 	      	_.each(party.images, function(id){
 	      		Images.remove(id);
-	      		//if(Thumbs.findOne({originalId:id}));
 	      	})
 	      }
 	    }
