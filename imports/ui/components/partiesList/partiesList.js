@@ -6,6 +6,7 @@ import uiRouter from 'angular-ui-router';
 import template from './partiesList.html';
 import { name as PartyDetails } from '../partyDetails/partyDetails';
 import { name as PartyAdd } from '../partyAdd/partyAdd';
+import { name as PartyImage } from '../partyImage/partyImage';
 
 import { name as partiesService } from '../../../api/parties/parties.service';
 
@@ -16,6 +17,7 @@ class PartiesList {
     $rootScope.$state = $state;
     this.partiesService = partiesService;
     $reactive(this).attach($scope);
+    this.subscribe('images');
 
     this.helpers({
       parties() {
@@ -48,7 +50,8 @@ export default angular.module(name, [
   uiRouter,
   PartyAdd,
   PartyDetails,
-  partiesService
+  partiesService,
+  PartyImage
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {

@@ -24,7 +24,6 @@ if (Meteor.isServer){
 	        {
 	        	collectionName: "auteurs",
 	            find: function(party) {
-	            	console.log('ok')
 	                return Meteor.users.find({_id:party.owner}, {limit:1, fields:{profile:1}})
 	            }
 	        }

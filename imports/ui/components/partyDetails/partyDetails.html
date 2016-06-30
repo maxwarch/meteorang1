@@ -6,6 +6,7 @@
 		<div class="panel-body">
 			<p>{{ partyDetails.party.description }}</p>
 			<em>de : {{ partyDetails.auteur(partyDetails.party.owner).profile.pseudo }}</em>
+			<img ng-src="{{image.url}}" ng-repeat="image in partyDetails.images">
 		</div>
 	</div>
 	<button type="button" class="btn btn-default" onclick="window.history.back()">Retour</button>

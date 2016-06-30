@@ -9,6 +9,7 @@
 			<input type="text" id="description" class="form-control" ng-model="partyAdd.party.description" />
 		</div>
 		<button ng-click="partyAdd.submit()" class="btn btn-primary">Add Party!</button>
+		<party-upload files="partyAdd.party.images"></party-upload>
 	</form>
 </div>
 <br>

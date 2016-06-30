@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Parties } from '../imports/api/parties';
-//import { Users } from '../imports/api/users';
+import { Users } from '../imports/api/users';
+import '../imports/api/images';
 
 Meteor.startup(() => {
   if (Parties.find().count() === 0) {

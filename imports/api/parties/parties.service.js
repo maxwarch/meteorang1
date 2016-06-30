@@ -1,6 +1,7 @@
 import angular from 'angular';
 
 import { Parties, Auteurs } from './index';
+import { Images, Thumbs } from '../images';
 
 const name = 'partiesService';
 
@@ -9,6 +10,7 @@ export default angular.module(name, [])
 	'ngInject';
 
 	Meteor.subscribe('parties');
+	Meteor.subscribe('images');
 
 	this.getParties = function(id){
 		if(id) return Parties.findOne(id);
@@ -26,6 +28,17 @@ export default angular.module(name, [])
 	this.remove = function(party) { 
 	    if (party) {
 	      Parties.remove(party._id);
+	      if(party.images){
+	      	console.log(party)
+	      	_.each(party.images, function(id){
+	      		Images.remove(id);
+	      		//if(Thumbs.findOne({originalId:id}));
+	      	})
+	      }
 	    }
-	  }
+	}
+
+	this.getImages = function(ids){
+		return Images.find({_id:{$in:ids || []}});
+	}
 })

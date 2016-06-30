@@ -18,6 +18,10 @@ class PartyDetails {
     this.helpers({
       party(){
         return partiesService.getParties($stateParams.partyId); 
+      },
+      images(){
+        if(ids = partiesService.getParties($stateParams.partyId))
+          return partiesService.getImages(ids.images);
       }
     });
   }
