@@ -10,7 +10,7 @@ import { dataURLToBlob, blobToArrayBuffer } from './helpers';
  * @param  {Function} resolve [description]
  * @param  {Function} reject  [description]
  */
-export function upload(dataUrl, name, resolve, reject) {
+export function upload(dataUrl, name, progress, resolve, reject) {
   // convert to Blob
   const blob = dataURLToBlob(dataUrl);
   blob.name = name;
@@ -25,7 +25,8 @@ export function upload(dataUrl, name, resolve, reject) {
       file,
       store: ImagesStore,
       onError: reject,
-      onComplete: resolve
+      onComplete: resolve,
+      onProgress: progress
     });
  
     upload.start();

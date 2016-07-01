@@ -2,15 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 
 export const Auteurs = new Mongo.Collection('auteurs');
-export const Parties = new Mongo.Collection('parties');/*, {
-	transform: function(doc){
-		doc.user = Meteor.users.findOne({
-			_id:doc.owner
-		}, {fields:{profile:1}});
-		console.log(doc)
-		return doc;
-	}
-});*/
+export const Parties = new Mongo.Collection('parties');
 
 Parties.allow({
 	insert(userId, party) {

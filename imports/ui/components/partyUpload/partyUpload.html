@@ -1,33 +1,44 @@
-<div layout="column">
-  <div ngf-drop
-    ngf-select
-    ngf-change="partyUpload.addImages($files)"
-    ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}"
-    class="drop-box"
-    ngf-multiple="false"
-    ngf-allow-dir="false"
-    ngf-accept="'image/*'"
-    ngf-drop-available="true"
-    ng-hide="partyUpload.cropImgSrc">
-    <div>Click here to select image</div>
-    <div>
-      <strong>OR</strong>
-    </div>
-    <div>You can also drop image to here</div>
-  </div>
-  <div ng-show="partyUpload.cropImgSrc" layout="column" class="ng-crop">
-    <div>
-      <h3>Edit &amp; crop</h3>
-      <button type="button" class="btn btn-default" ng-click="partyUpload.save()">Save Image</button>
-      <button type="button" class="btn btn-default" ng-click="partyUpload.reset()">Cancel</button>
-    </div>
-    <div class="ng-crop-container">
-      <img-crop image="partyUpload.cropImgSrc" result-image="partyUpload.myCroppedImage" area-type="square"></img-crop>
-    </div>
-  </div>
-  <div layout="row" class="images-container-title" sv-root sv-part="partyUpload.thumbs">
-    <div sv-element class="party-image-container" ng-class="{'main-image': $index === 0}" ng-repeat="thumb in partyUpload.thumbs">
-      <img draggable="false" ng-src="{{ thumb.url }}"/>
-    </div>
-  </div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div ngf-drop
+		ngf-select
+		ngf-change="partyUpload.addImages($files)"
+		ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}"
+		class="drop-box"
+		ngf-multiple="true"
+		ngf-allow-dir="false"
+		ngf-accept="'image/*'"
+		ngf-drop-available="true"
+		ng-hide="partyUpload.images">
+			<div>Click here to select image</div>
+			<div>
+				<strong>OR</strong>
+			</div>
+			<div>You can also drop image to here</div>
+		</div>
+	</div>
+</div>
+<div ng-show="partyUpload.images" class="ng-crop">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<h3>Edit &amp; crop</h3>
+			<button type="button" class="btn btn-success" ng-click="partyUpload.save()">Save Image</button>
+			<button type="button" class="btn btn-alert" ng-click="partyUpload.reset()">Cancel</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="ng-crop-container pull-left" ng-repeat="img in partyUpload.images">
+				<!-- <img ng-src="{{ img.cropImgSrc }}" alt=""> -->
+				<img-crop image="img.cropImgSrc" result-image="img.myCroppedImage" area-type="square"></img-crop>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="images-container" sv-root sv-part="partyUpload.thumbs">
+			<img sv-element class="pull-left" draggable="false" ng-src="{{ thumb.url }}" ng-class="{'main-image': $index === 0}" ng-repeat="thumb in partyUpload.thumbs"/>
+		</div>
+	</div>
 </div>

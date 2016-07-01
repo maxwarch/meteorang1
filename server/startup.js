@@ -4,7 +4,7 @@ import { Users } from '../imports/api/users';
 import '../imports/api/images';
 
 Meteor.startup(() => {
-  if (Parties.find().count() === 0) {
+  /*if (Parties.find().count() === 0) {
     const parties = [{
       'name': 'Dubstep-Free Zone',
       'description': 'Fast just got faster with Nexus S.'
@@ -19,7 +19,7 @@ Meteor.startup(() => {
     parties.forEach((party) => {
       Parties.insert(party)
     });
-  }
+  }*/
 });
 
 Meteor.methods({

@@ -17,7 +17,6 @@ class PartiesList {
     $rootScope.$state = $state;
     this.partiesService = partiesService;
     $reactive(this).attach($scope);
-    this.subscribe('images');
 
     this.helpers({
       parties() {
@@ -25,13 +24,19 @@ class PartiesList {
       },
       myId(){
         return Meteor.userId();
-      }
+      },
+      
     });
   }
 
-  auteur(id){
+/*  auteur(id){
     return this.partiesService.getAuteur(id);
   }
+
+  thumbs(postId){
+    console.log(postId)
+    return this.partiesService.getThumbs(postId);
+  }*/
 
   setPrivate(party){
     this.partiesService.setPrivate(party);

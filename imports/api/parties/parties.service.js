@@ -11,6 +11,7 @@ export default angular.module(name, [])
 
 	Meteor.subscribe('parties');
 	Meteor.subscribe('images');
+	Meteor.subscribe('thumbs');
 
 	this.getParties = function(id){
 		if(id) return Parties.findOne(id);
@@ -26,18 +27,22 @@ export default angular.module(name, [])
 	}
 
 	this.remove = function(party) { 
-	    if (party) {
-	      Parties.remove(party._id);
-	      if(party.images){
-	      	console.log(party)
-	      	_.each(party.images, function(id){
-	      		Images.remove(id);
-	      	})
-	      }
-	    }
+		if (party) {
+			Parties.remove(party._id);
+			if(party.images){
+				_.each(party.images, function(id){
+					Images.remove(id);
+				})
+			}
+		}
 	}
 
 	this.getImages = function(ids){
 		return Images.find({_id:{$in:ids || []}});
+	}
+
+	this.getThumbs = function(id){
+		var post = Parties.findOne(id);
+		return Thumbs.find({originalId:{$in:post.images || []}});
 	}
 })
