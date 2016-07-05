@@ -20,6 +20,7 @@ class PartiesList {
 
     this.helpers({
       parties() {
+        console.log(partiesService.getParties())
         return partiesService.getParties();
       },
       myId(){

@@ -1,6 +1,6 @@
 import angular from 'angular';
 
-import { Parties, Auteurs } from './index';
+import { Parties } from './index';
 import { Images, Thumbs } from '../images';
 
 const name = 'partiesService';
@@ -10,16 +10,24 @@ export default angular.module(name, [])
 	'ngInject';
 
 	Meteor.subscribe('parties');
-	Meteor.subscribe('images');
-	Meteor.subscribe('thumbs');
+	//Meteor.subscribe('images');
+	//Meteor.subscribe('thumbs');
 
 	this.getParties = function(id){
-		if(id) return Parties.findOne(id);
-		return Parties.find();
-	}
+		var self = this;
+		var result = Parties.find().map(function(doc){
+						doc.auteur = Meteor.users.findOne(doc.owner);
+						doc.thumbs = Thumbs.find({originalId:{$in:doc.images || []}}, {fields:{url:1}}).fetch()
+						doc.images = self.getImages(doc.images).fetch();
+						return doc;
+					});
 
-	this.getAuteur = function(id){
-		return Auteurs.findOne(id);
+		if(id){
+			return _.find(result, {_id:id});
+		} else{
+			return result;
+		}
+		
 	}
 
 	this.setPrivate = function(party){

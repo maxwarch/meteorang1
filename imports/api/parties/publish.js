@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
  
 import { Parties } from './collection';
-import { Thumbs } from '../images/collection';
+import { Images, Thumbs } from '../images/collection';
 
 if (Meteor.isServer){
 	
-	Meteor.publish('parties', function(query, options) {
+	/*Meteor.publish('parties', function(query, options) {
 		var self = this;
 
 		const selector = {
@@ -21,7 +21,6 @@ if (Meteor.isServer){
 		
 		handler = Parties.find(query, options).observeChanges({
 			added: function (id, doc) {
-				var that = this
 				doc.auteur = Meteor.users.findOne({_id: doc.owner}, {fields:{email:1, profile:1}});
 
 				doc.thumbs = [];
@@ -31,7 +30,6 @@ if (Meteor.isServer){
 				self.added('parties', id, doc);
 			},
 			changed: function (id, fields) {
-
 				self.changed('parties', id, fields);
 			},
 			removed: function (id) {
@@ -43,9 +41,9 @@ if (Meteor.isServer){
 		self.onStop(function () {
 			if(handler) handler.stop();
 		});
-	});
+	});*/
 
-	/*Meteor.publishComposite('parties', {
+	Meteor.publishComposite('parties', {
 	    find: function() {
 	    	const selector = {
 							$or: [
@@ -62,11 +60,17 @@ if (Meteor.isServer){
 	    },
 	    children: [
 	        {
-	        	collectionName: "auteurs",
-	            find: function(party) {
-	                return Meteor.users.find({_id:party.owner}, {limit:1, fields:{profile:1}})
+	            find: function(doc) {
+	                return Meteor.users.find({_id:doc.owner}, {limit:1, fields:{profile:1}})
+	            }
+	        },
+	        {
+	        	find: function(doc) {
+	        		if(doc.images){
+						return Images.find({_id:{$in:doc.images || []}}, {fields:{url:1}});
+					}
 	            }
 	        }
 	    ]
-	});*/
+	});
 }
