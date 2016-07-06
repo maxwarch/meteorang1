@@ -30,15 +30,6 @@ class PartiesList {
     });
   }
 
-/*  auteur(id){
-    return this.partiesService.getAuteur(id);
-  }
-
-  thumbs(postId){
-    console.log(postId)
-    return this.partiesService.getThumbs(postId);
-  }*/
-
   setPrivate(party){
     this.partiesService.setPrivate(party);
   }

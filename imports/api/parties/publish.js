@@ -60,6 +60,7 @@ if (Meteor.isServer){
 	    },
 	    children: [
 	        {
+	        	collectionName:'auteurs',
 	            find: function(doc) {
 	                return Meteor.users.find({_id:doc.owner}, {limit:1, fields:{profile:1}})
 	            }

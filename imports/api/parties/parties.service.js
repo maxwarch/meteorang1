@@ -1,4 +1,5 @@
 import angular from 'angular';
+import { Mongo } from 'meteor/mongo';
 
 import { Parties } from './index';
 import { Images, Thumbs } from '../images';
@@ -9,25 +10,30 @@ export default angular.module(name, [])
 .service(name, function () {
 	'ngInject';
 
+	Auteurs = new Mongo.Collection('auteurs');
 	Meteor.subscribe('parties');
-	//Meteor.subscribe('images');
-	//Meteor.subscribe('thumbs');
 
 	this.getParties = function(id){
 		var self = this;
-		var result = Parties.find().map(function(doc){
-						doc.auteur = Meteor.users.findOne(doc.owner);
-						doc.thumbs = Thumbs.find({originalId:{$in:doc.images || []}}, {fields:{url:1}}).fetch()
-						doc.images = self.getImages(doc.images).fetch();
-						return doc;
-					});
+		var result = {};
 
 		if(id){
-			return _.find(result, {_id:id});
-		} else{
-			return result;
+			result = Parties.findOne(id);
+			if(result){
+				result.auteur = Auteurs.findOne(result.owner);
+				result.thumbs = Thumbs.find({originalId:{$in:result.images || []}}, {fields:{url:1}}).fetch()
+				result.images = self.getImages(result.images).fetch();
+			}
+		}else{
+			result = Parties.find().map(function(doc){
+							doc.auteur = Auteurs.findOne(doc.owner);
+							doc.thumbs = Thumbs.find({originalId:{$in:doc.images || []}}, {fields:{url:1}}).fetch()
+							doc.images = self.getImages(doc.images).fetch();
+							return doc;
+						});
 		}
-		
+
+		return result;		
 	}
 
 	this.setPrivate = function(party){

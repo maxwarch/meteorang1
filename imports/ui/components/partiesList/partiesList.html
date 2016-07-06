@@ -1,4 +1,4 @@
-<party-add ng-show="$state.is('parties')"></party-add>
+<party-add ng-show="$state.is('parties') && !!partiesList.myId"></party-add>
 <div class="container">
 	<div class="row" ng-show="$state.is('parties')">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -22,7 +22,7 @@
 									<img ng-src="{{ img.url }}" alt="">
 								</li>
 							</ul>
-							<em>de : {{ party.auteur.profile.pseudo }}<!-- {{ partiesList.auteur(party.owner).profile.pseudo }} --></em>
+							<em>de : {{ party.auteur.profile.pseudo }}</em>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="party.owner === partiesList.myId">
 							<button ng-click="partiesList.remove(party)" class="btn btn-xs btn-danger">X</button>
