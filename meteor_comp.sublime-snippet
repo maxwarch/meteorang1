@@ -27,20 +27,14 @@ export default angular.module(name, [
 	uiRouter
 ])
 
-.config(function(\$stateProvider, \$urlRouterProvider) {
-  'ngInject';
-
-  \$stateProvider
-    .state('${5:${TM_FILENAME/(.+)\..+|.*/$1/:name}}', {
-        url: '/${6:${TM_FILENAME/(.+)\..+|.*/$1/:name}}',
-        controllerAs: name,
-        controller: ${7:${TM_FILENAME/(^|-|.js)(.?)/\U\2\E/g}},
-        templateUrl: template
-    })
+.component(name, {
+	templateUrl:template,
+	controller:${4:${TM_FILENAME/(^|-|.js)(.?)/\U\2\E/g}},
+	controllerAs:name
 })
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>metpage</tabTrigger>
+	<tabTrigger>metcomp</tabTrigger>
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
 	<!-- <scope>source.python</scope> -->
 </snippet>
