@@ -1,40 +1,38 @@
 <party-add ng-show="$state.is('parties') && !!partiesList.myId"></party-add>
-<div class="container">
-	<div class="row" ng-show="$state.is('parties')">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div class="list-group">
-				<div class="list-group-item" ng-repeat="party in partiesList.parties">
-					<div class="row">
-						<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+<div class="row" ng-show="$state.is('parties')">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="list-group">
+			<div class="list-group-item" ng-repeat="party in partiesList.parties">
+				<div class="row">
+					<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 
-							<div class="checkbox" ng-show="party.owner === partiesList.myId">
-								<label>
-									<input type="checkbox" ng-model="party.public" ng-change="partiesList.setPrivate(party)">
-									public
-								</label>
-							</div>
-							<a ui-sref="details({ partyId: party._id })">
-								<h4 class="list-group-item-heading">{{party.name}}</h4>
-							</a>
-							<p>{{party.description}}</p>
-							<ul>
-								<li ng-repeat="img in party.thumbs">
-									<img ng-src="{{ img.url }}" alt="">
-								</li>
-							</ul>
-							<em>de : {{ party.auteur.profile.pseudo }}</em>
+						<div class="checkbox" ng-show="party.owner === partiesList.myId">
+							<label>
+								<input type="checkbox" ng-model="party.public" ng-change="partiesList.setPrivate(party)">
+								public
+							</label>
 						</div>
-						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="party.owner === partiesList.myId">
-							<button ng-click="partiesList.remove(party)" class="btn btn-xs btn-danger">X</button>
-						</div>
+						<a ui-sref="details({ partyId: party._id })">
+							<h4 class="list-group-item-heading">{{party.name}}</h4>
+						</a>
+						<p>{{party.description}}</p>
+						<ul>
+							<li ng-repeat="img in party.thumbs">
+								<img ng-src="{{ img.url }}" alt="">
+							</li>
+						</ul>
+						<em>de : {{ party.auteur.profile.pseudo }}</em>
+					</div>
+					<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="party.owner === partiesList.myId">
+						<button ng-click="partiesList.remove(party)" class="btn btn-xs btn-danger">X</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row" ng-show="$state.is('details')">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div ui-view></div>
-		</div>
+</div>
+<div class="row" ng-show="$state.is('details')">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div ui-view></div>
 	</div>
 </div>

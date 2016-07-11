@@ -1,4 +1,5 @@
 import angular from 'angular';
+import { Meteor } from 'meteor/meteor';
 
 import { Users } from './index';
 
@@ -8,14 +9,13 @@ export default angular.module(name, [])
 .service(name, function () {
 	'ngInject';
 
-	Meteor.subscribe('userStatus');
+	Meteor.subscribe('userstatus');
 
 	this.isLoggedIn = function(){
 		return !!Meteor.userId();		
 	}
 
 	this.online = function(){
-		console.log(Users.find({'status.online':true}).fetch())
-		return Meteor.users.find({'status.online':true})
+		return Users.find({_id:{$ne:Meteor.userId()}}, {fields:{profile:1}})
 	}
 })

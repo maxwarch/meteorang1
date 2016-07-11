@@ -33,7 +33,7 @@ export default angular.module(name, [])
 						});
 		}
 
-		return result;		
+		return result;
 	}
 
 	this.setPrivate = function(party){

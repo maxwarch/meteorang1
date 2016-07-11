@@ -1,4 +1,10 @@
-users
-<ul>
-	<li ng-repeat="user in users.online">{{ user.profile.pseudo }}</li>
-</ul>
+<div class="row users">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		users
+		<ul ng-show="users.online">
+			<li ng-repeat="user in users.online"><user chatter="user"></user></li>
+		</ul>
+		<p ng-show="users.online.length == 0">Pas d'utilisateur en ligne</p>
+	</div>
+</div>
+

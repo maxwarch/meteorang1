@@ -9,7 +9,6 @@ import template from './${1:${TM_FILENAME/(.+)\..+|.*/$1/:name}}.html';
 const name = '${2:${TM_FILENAME/(.+)\..+|.*/$1/:name}}';
 
 class ${3:${TM_FILENAME/(^|-|.js)(.?)/\U\2\E/g}}{
-	$4
 	constructor(\$scope, \$reactive, \$state){
 		'ngInject';
 		this.\$state = \$state;

@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Parties } from '../imports/api/parties';
 import { Users } from '../imports/api/users';
 import '../imports/api/images';
+import '../imports/api/chat';
 
 Meteor.startup(() => {
   /*if (Parties.find().count() === 0) {
