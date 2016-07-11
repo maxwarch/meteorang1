@@ -9,7 +9,7 @@ import template from './users.html';
 const name = 'users';
 
 class Users{
-	constructor($scope, $rootScope, $element, $attrs, $compile, $reactive, usersService){
+	constructor($scope, $rootScope, $element, $attrs, $compile, $reactive, usersService, chatService){
 		'ngInject';
 
 		this.$rootScope = $rootScope;
@@ -20,6 +20,12 @@ class Users{
 		this.helpers({
 			online(){
 				return usersService.online();
+			},
+			isLoggedIn(){
+				return usersService.isLoggedIn();
+			},
+			hasMessage(){
+				return chatService.watchMessage();
 			}
 		});
 	}

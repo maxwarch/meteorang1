@@ -14,6 +14,9 @@ class Chat{
 		'ngInject';
 
 		$reactive(this).attach($scope);
+		this.chatService = chatService;
+		this.message = '';
+		this.channelId = null;
 
 		this.helpers({
 			isLoggedIn(){
@@ -45,6 +48,23 @@ class Chat{
 			$scope.$destroy();
 			$($element).remove()
 		})
+	}
+
+	send(){
+		if(this.channelId){
+			this.chatService.sendMessage(this.message, this.channelId);
+		}else{
+			var self = this;
+			this.chatService.open([this.chatter])
+				.then(function(id){
+					self.channelId = id;
+					self.chatService.sendMessage(self.message, self.channelId);
+					self.message = '';
+				},
+				function(err){
+					console.log(err)
+				})
+		}
 	}
 }
 
