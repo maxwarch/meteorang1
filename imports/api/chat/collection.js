@@ -11,7 +11,6 @@ function loggedIn(userId) {
 Channels.allow({
 	insert: loggedIn,
 	update: loggedIn,
-	remove: loggedIn
 });
 
 Messages.allow({

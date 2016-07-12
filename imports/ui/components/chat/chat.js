@@ -10,24 +10,29 @@ const name = 'chat';
 
 class Chat{
 	
-	constructor($scope, $element, $reactive, usersService, chatService){
+	constructor($scope, $element, $attrs, $reactive, usersService, chatService){
 		'ngInject';
 
 		$reactive(this).attach($scope);
 		this.chatService = chatService;
 		this.message = '';
-		this.channelId = null;
+		this.$attrs = $attrs;
 
 		this.helpers({
 			isLoggedIn(){
 				return usersService.isLoggedIn();
 			},
 
-			chatPartner(){
-				return Meteor.users.findOne(this.chatter, {fields:{profile:1}});
+			messages(){
+				return chatService.getMessages(this.channel);
+			},
+
+			myId(){
+				return Meteor.userId();
 			}
 		});
 
+		var self = this;
 		var minimize = $($element).find('.panel-heading span.icon_minim');
 		minimize.on('click', function(e){
 			e.preventDefault();
@@ -46,19 +51,20 @@ class Chat{
 		supp.on('click', function(e){
 			e.preventDefault();
 			$scope.$destroy();
-			$($element).remove()
+			$($element).remove();
+			chatService.close(self.channel);
 		})
 	}
 
 	send(){
-		if(this.channelId){
-			this.chatService.sendMessage(this.message, this.channelId);
+		if(this.channel){
+			this.chatService.sendMessage(this.message, this.chatter.split(','), this.channel);
 		}else{
 			var self = this;
-			this.chatService.open([this.chatter])
+			this.chatService.open(this.chatter.split(','))
 				.then(function(id){
-					self.channelId = id;
-					self.chatService.sendMessage(self.message, self.channelId);
+					self.$attrs.$set('channel', id);
+					self.chatService.sendMessage(self.message, self.channel);
 					self.message = '';
 				},
 				function(err){
@@ -76,7 +82,8 @@ export default angular.module(name, [
 ])
 .component(name, {
 	bindings:{
-		chatter:'@'
+		chatter:'@',
+		channel:'@'
 	},
 	templateUrl:template,
 	controller:Chat,

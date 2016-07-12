@@ -10,77 +10,28 @@
                     <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>
                 </div>
             </div>
-            <div class="panel-body msg_container_base">
-                <div class="row msg_container base_sent">
+            <div class="panel-body msg_container_base" ng-repeat="msg in chat.messages">
+                <div class="row msg_container base_sent" ng-if="msg.user._id == chat.myId">
                     <div class="col-md-10 col-xs-10">
                         <div class="messages msg_sent">
-                            <p>that mongodb thing looks good, huh?
-                            tiny master db, and huge document store</p>
-                            <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                            <p>{{ msg.texte }}</p>
+                            <time datetime="2009-11-13T20:00">{{ msg.user.profile.pseudo }} - {{ msg.createdAt | date:'medium' }}</time>
                         </div>
                     </div>
                     <div class="col-md-2 col-xs-2 avatar">
                         <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
                     </div>
                 </div>
-                <div class="row msg_container base_receive">
+
+                <div class="row msg_container base_receive" ng-if="msg.user._id != chat.myId">
                     <div class="col-md-2 col-xs-2 avatar">
                         <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
                     </div>
                     <div class="col-md-10 col-xs-10">
                         <div class="messages msg_receive">
-                            <p>that mongodb thing looks good, huh?
-                            tiny master db, and huge document store</p>
-                            <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                            <p>{{ msg.texte }}</p>
+                            <time datetime="2009-11-13T20:00">{{ msg.user.profile.pseudo }} - {{ msg.createdAt | date:'medium' }}</time>
                         </div>
-                    </div>
-                </div>
-                <div class="row msg_container base_receive">
-                    <div class="col-md-2 col-xs-2 avatar">
-                        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                    </div>
-                    <div class="col-xs-10 col-md-10">
-                        <div class="messages msg_receive">
-                            <p>that mongodb thing looks good, huh?
-                            tiny master db, and huge document store</p>
-                            <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="row msg_container base_sent">
-                    <div class="col-xs-10 col-md-10">
-                        <div class="messages msg_sent">
-                            <p>that mongodb thing looks good, huh?
-                            tiny master db, and huge document store</p>
-                            <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-xs-2 avatar">
-                        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                    </div>
-                </div>
-                <div class="row msg_container base_receive">
-                    <div class="col-md-2 col-xs-2 avatar">
-                        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                    </div>
-                    <div class="col-xs-10 col-md-10">
-                        <div class="messages msg_receive">
-                            <p>that mongodb thing looks good, huh?
-                            tiny master db, and huge document store</p>
-                            <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="row msg_container base_sent">
-                    <div class="col-md-10 col-xs-10 ">
-                        <div class="messages msg_sent">
-                            <p>that mongodb thing looks good, huh?
-                            tiny master db, and huge document store</p>
-                            <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-xs-2 avatar">
-                        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
                     </div>
                 </div>
             </div>

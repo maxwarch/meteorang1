@@ -3,6 +3,7 @@ import { Parties } from '../imports/api/parties';
 import { Users } from '../imports/api/users';
 import '../imports/api/images';
 import '../imports/api/chat';
+import '../imports/api/alertes';
 
 Meteor.startup(() => {
   /*if (Parties.find().count() === 0) {

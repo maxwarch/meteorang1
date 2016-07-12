@@ -18,4 +18,8 @@ export default angular.module(name, [])
 	this.online = function(){
 		return Users.find({_id:{$ne:Meteor.userId()}}, {fields:{profile:1}})
 	}
+
+	this.userIsOnline = function(users){
+		//return Users.find({_id:{$in:users}}); 
+	}
 })

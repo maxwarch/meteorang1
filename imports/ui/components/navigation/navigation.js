@@ -7,6 +7,7 @@ import { name as PartiesList } from '../partiesList/partiesList';
 import { name as PartiesDetails } from '../partyDetails/partyDetails';
 import { name as Auth } from '../auth/auth';
 import { name as AuthButton } from '../auth/auth.component';
+import { name as Message } from '../message/message';
 
 
 class Navigation{
@@ -27,7 +28,8 @@ export default angular.module(name, [
   PartiesDetails,
   PartiesList,
   Auth,
-  AuthButton
+  AuthButton,
+  Message
 ])
 
 .component(name, {

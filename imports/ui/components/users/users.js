@@ -23,9 +23,6 @@ class Users{
 			},
 			isLoggedIn(){
 				return usersService.isLoggedIn();
-			},
-			hasMessage(){
-				return chatService.watchMessage();
 			}
 		});
 	}
@@ -33,12 +30,11 @@ class Users{
 
 
 class User{
-	constructor($scope, $rootScope, $document, $element, $attrs, $compile, $reactive, usersService, chatService){
+	constructor($scope, $reactive, usersService, chatService){
 		'ngInject';
 
 		this.$scope = $scope;
-		this.$compile = $compile;
-		this.$document = $document;
+		this.chatService = chatService;
 
 		$reactive(this).attach($scope);
 
@@ -48,8 +44,7 @@ class User{
 	}
 
 	newChat(){
-		var el = this.$compile('<chat chatter="' + this.chatter._id + '"></chat>')(this.$scope);
-		$(this.$document[0].body).append(el);
+		this.chatService.newChatbox(this.$scope, this.chatter._id)
 	}
 }
 
