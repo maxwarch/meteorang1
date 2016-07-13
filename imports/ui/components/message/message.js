@@ -14,18 +14,21 @@ class Message{
 		'ngInject';
 		this.$state = $state;
 		this.$scope = $scope;
+		this.chatService = chatService;
 
 		$reactive(this).attach($scope);
 
 		this.helpers({
 			checkAlertes(){
 				return alertesService.checkAlertes();
-			},
-
-			openChat(){
-				chatService.newChatbox($scope, Meteor.userId())
 			}
 		});
+	}
+
+	openChat(channelId){
+		var c = this.chatService.findChannelById(channelId);
+		if(c && c.users)
+			this.chatService.newChatbox(this.$scope, c.users)
 	}
 }
 

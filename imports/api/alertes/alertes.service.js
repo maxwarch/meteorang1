@@ -28,6 +28,5 @@ export default angular.module(name, ['usersService'])
 
 	this.setRead = function(channelid){
 		Meteor.call('setAlertesRead', channelid, Meteor.userId());
-		//Alertes.update({ 'options.channelid':channelid }, { $set:{ status:'read' } });
 	}
 })

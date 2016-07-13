@@ -25,7 +25,7 @@ export default angular.module(name, ['alertesService'])
 		var defer = $q.defer();
 		this.users = users;
 
-		var channelid = this.findChannel(users);
+		var channelid = this.findChannelByUsers(users);
 		if(channelid && channelid._id){
 			defer.resolve(channelid._id);
 		}else{
@@ -45,8 +45,12 @@ export default angular.module(name, ['alertesService'])
 		return defer.promise;
 	}
 
-	this.findChannel = function(users){
+	this.findChannelByUsers = function(users){
 		return Channels.findOne({ users: { $size: users.length, $all:users } }, {reactive:false}); 
+	}
+
+	this.findChannelById = function(channelId){
+		return Channels.findOne(channelId); 
 	}
 
 	this.close = function(channelid){
@@ -95,8 +99,8 @@ export default angular.module(name, ['alertesService'])
 	}
 
 	this.newChatbox = function($scope, chattersId){
-		chattersId = chattersId.split(',');
-		if(!chattersId[Meteor.userId()])
+		chattersId = (!angular.isArray(chattersId)) ? chattersId.split(',') : chattersId;
+		if(_.indexOf(chattersId, Meteor.userId()) == -1)
 			chattersId.push(Meteor.userId());
 
 		var self = this;
@@ -105,7 +109,7 @@ export default angular.module(name, ['alertesService'])
 
 			if(!chatboxId){
 				var el = $compile('<chat chatters="' + chattersId.join(',') + '" channel="' + channelid + '"></chat>')($scope);
-				$($document[0].body).append(el);
+				$($document[0].body).find('#main').append(el);
 			}else{
 				$rootScope.$broadcast('chatbox-reveal', channelid);
 			}

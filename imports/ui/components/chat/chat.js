@@ -10,7 +10,7 @@ const name = 'chat';
 
 class Chat{
 	
-	constructor($scope, $rootScope, $element, $attrs, $reactive, usersService, chatService){
+	constructor($scope, $rootScope, $window, $element, $attrs, $reactive, usersService, chatService){
 		'ngInject';
 
 		$reactive(this).attach($scope);
@@ -82,13 +82,13 @@ class Chat{
 	}
 
 	minimize(){
-        $(this.$element).find('.panel-body').slideUp();
+        $(this.$element).find('.body-chat').slideUp();
     	this.btCollapse.removeClass('glyphicon-minus').addClass('glyphicon-plus');
     	this.iscollapse = true;
 	}
 
 	maximize(){
-        $(this.$element).find('.panel-body').slideDown();
+        $(this.$element).find('.body-chat').slideDown();
 	    this.btCollapse.removeClass('glyphicon-plus').addClass('glyphicon-minus');
         this.iscollapse = false;
 	}
