@@ -15,18 +15,19 @@ export default angular.module(name, ['usersService'])
 	Meteor.subscribe('alertes');
 	
 	this.newAlerte = function(data){
-		//if(!!usersService.userIsOnline(data.users)){
-			return Alertes.batchInsert(data);
-		/*}else{
-			return true;
-		}*/
+		return Alertes.batchInsert(data);
 	}
 
 	this.checkAlertes = function(){
-		return Alertes.find().map(function(doc){
+		return Alertes.find({ status:'open' }).map(function(doc){
 					doc.owner = Users.findOne(doc.owner);
 					doc.message = Messages.findOne(doc.options.messageId)
 					return doc
 				})
+	}
+
+	this.setRead = function(channelid){
+		Meteor.call('setAlertesRead', channelid, Meteor.userId());
+		//Alertes.update({ 'options.channelid':channelid }, { $set:{ status:'read' } });
 	}
 })

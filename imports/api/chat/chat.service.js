@@ -1,5 +1,6 @@
 import angular from 'angular';
 import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 //import { UploadFS } from 'meteor/jalik:ufs';
 
 import { Users } from '../users/index';
@@ -9,32 +10,29 @@ import { alertesService } from '../alertes/alertes.service';
 const name = 'chatService';
 
 export default angular.module(name, ['alertesService'])
-.service(name, function ($q, $compile, $document, alertesService) {
+.service(name, function ($q, $rootScope, $compile, $document, alertesService) {
 	'ngInject';
 
-	Meteor.subscribe('userstatus');
+	//Meteor.subscribe('userstatus');
 	Meteor.subscribe('channels');
 	Meteor.subscribe('messages');
 
 	this.users = [];
+	this.chatboxes = [];
 
 	this.open = function(users){
+		var date = new Date();
 		var defer = $q.defer();
 		this.users = users;
 
-		if(id = this.findChannel(users)){
-			Channels.update(id, {
-					status:'open',
-					openAt:new Date()
-				});
-
-			defer.resolve(id);
+		var channelid = this.findChannel(users);
+		if(channelid && channelid._id){
+			defer.resolve(channelid._id);
 		}else{
 			Channels.insert({
 					owner:Meteor.userId(),
 					users:users,
-					status:'open',
-					createdAt:new Date()
+					createdAt:date
 				}, function(err, id){
 					if(err){
 						defer.reject('Impossible d\'ouvrir le chat');
@@ -48,15 +46,11 @@ export default angular.module(name, ['alertesService'])
 	}
 
 	this.findChannel = function(users){
-		var r = Channels.findOne({ users: { $size: users.length, $all:users } });
-		return (r) ? r._id : r;
+		return Channels.findOne({ users: { $size: users.length, $all:users } }, {reactive:false}); 
 	}
 
-	this.close = function(id){
-		return Channels.update(id, {
-					status:'close',
-					closeAt:new Date()
-				})
+	this.close = function(channelid){
+		this.chatboxes.splice(this.chatboxes.indexOf(channelid), 1);
 	}
 
 	this.getMessages = function(channelId){
@@ -100,27 +94,32 @@ export default angular.module(name, ['alertesService'])
 				})
 	}
 
-	this.isOpen = function(channel){
-		return Channels.find({_id:channel, $and:[{status:'open'}]}).count() > 0;
-	}
-
 	this.newChatbox = function($scope, chattersId){
 		chattersId = chattersId.split(',');
 		if(!chattersId[Meteor.userId()])
 			chattersId.push(Meteor.userId());
 
-		var channelId = (id = this.findChannel(chattersId)) ? id : '';
+		var self = this;
+		this.open(chattersId).then(function(channelid){
+			var chatboxId = self.findChatbox(channelid);
 
-		if(channelId){
-			//if(!this.isOpen(channelId)){
-				var el = $compile('<chat chatter="' + chattersId.join(',') + '" channel="' + channelId + '"></chat>')($scope);
+			if(!chatboxId){
+				var el = $compile('<chat chatters="' + chattersId.join(',') + '" channel="' + channelid + '"></chat>')($scope);
 				$($document[0].body).append(el);
-			/*}else{
-				console.log('close')
-			}*/
-		}else{
-			var el = $compile('<chat chatter="' + chattersId.join(',') + '" channel=""></chat>')($scope);
-			$($document[0].body).append(el);
-		}
+			}else{
+				$rootScope.$broadcast('chatbox-reveal', channelid);
+			}
+			
+			alertesService.setRead(channelid);
+		});
+	}
+
+	this.findChatbox = function(channelid){
+		return (this.chatboxes) ? this.chatboxes.indexOf(channelid) != -1 : null;
+	}
+
+	this.registerChatbox = function(channelid){
+		if(!this.chatboxes) this.chatboxes = [];
+		this.chatboxes.push(channelid);
 	}
 })

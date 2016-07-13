@@ -8,10 +8,7 @@
 		<ul class="dropdown-menu">
 			<li ng-repeat="msg in message.checkAlertes">
 				<div class="list-group">
-					<a href="#" class="list-group-item" channel-id="{{ msg.options.channelId }}">
-						<h4 class="list-group-item-heading">{{ msg.owner.profile.pseudo }}</h4>
-						<p class="list-group-item-text">{{ msg.message.texte }} <br><em>{{ msg.message.createdAt | date:'medium' }}</em></p>
-					</a>
+					<message-item msg="msg" channel-id="{{ msg.options.channelId }}" ng-click="message.openChat"></message-item>
 				</div>
 			</li>
 		</ul>

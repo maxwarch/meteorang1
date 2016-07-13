@@ -9,17 +9,16 @@ export default angular.module(name, [])
 .service(name, function () {
 	'ngInject';
 
-	Meteor.subscribe('userstatus');
-
 	this.isLoggedIn = function(){
 		return !!Meteor.userId();		
 	}
 
 	this.online = function(){
-		return Users.find({_id:{$ne:Meteor.userId()}}, {fields:{profile:1}})
+		Meteor.subscribe('userstatus');
+		return Users.find({ $and:[{ 'status.online': true, _id:{$ne:Meteor.userId()} }] });
 	}
 
-	this.userIsOnline = function(users){
-		//return Users.find({_id:{$in:users}}); 
+	this.userIsOnline = function(id){
+		return Users.find(id);
 	}
 })

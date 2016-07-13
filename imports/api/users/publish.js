@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
+import { Users } from './collection';
 
 if (Meteor.isServer){
 	Meteor.publish('userstatus', function() {
-	  	return Meteor.users.find({ 'status.online': true }, { fields: { profile:1 } });
+	  	return Users.find({ 'status.online': true }, { fields: { profile:1, status:1 } });
 	});
 }
