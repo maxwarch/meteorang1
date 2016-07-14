@@ -3,7 +3,7 @@ import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 import { Meteor } from 'meteor/meteor';
 
-import { Users as Users } from '../../../api/users';
+import { Users as Users } from '../../../api/users/collection';
 import template from './moncompte.html';
 
 const name = 'moncompte';

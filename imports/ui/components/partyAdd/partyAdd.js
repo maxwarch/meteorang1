@@ -2,6 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 
 import template from './partyAdd.html';
+import { name as PartyUpload } from '../partyUpload/partyUpload';
 import { Parties } from '../../../api/parties';
 
 class PartyAdd {
@@ -11,6 +12,8 @@ class PartyAdd {
 
   submit() {
     this.party.owner = Meteor.user()._id;
+    this.party.public = false;
+    console.log(this.party)
     Parties.insert(this.party);
     this.reset();
   }
@@ -24,7 +27,8 @@ const name = 'partyAdd';
 
 // create a module
 export default angular.module(name, [
-  angularMeteor
+  angularMeteor,
+  PartyUpload
 ]).component(name, {
   templateUrl:template,
   controllerAs: name,

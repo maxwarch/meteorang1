@@ -1,1 +1,13 @@
-The party your selected is: {{ partyDetails.partyId }}
+<div class="container-fluid">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ partyDetails.party.name }}</h3>
+		</div>
+		<div class="panel-body">
+			<p>{{ partyDetails.party.description }}</p>
+			<em>de : {{ partyDetails.party.auteur.profile.pseudo }}</em>
+			<img ng-src="{{image.url}}" ng-repeat="image in partyDetails.party.images">
+		</div>
+	</div>
+	<button type="button" class="btn btn-default" onclick="window.history.back()">Retour</button>
+</div>

@@ -1,9 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { Parties } from '../imports/api/parties';
-//import { Users } from '../imports/api/users';
+import { Users } from '../imports/api/users';
+import '../imports/api/images';
+import '../imports/api/chat';
+import { Alertes } from '../imports/api/alertes';
 
 Meteor.startup(() => {
-  if (Parties.find().count() === 0) {
+  /*if (Parties.find().count() === 0) {
     const parties = [{
       'name': 'Dubstep-Free Zone',
       'description': 'Fast just got faster with Nexus S.'
@@ -18,7 +21,7 @@ Meteor.startup(() => {
     parties.forEach((party) => {
       Parties.insert(party)
     });
-  }
+  }*/
 });
 
 Meteor.methods({
@@ -29,6 +32,11 @@ Meteor.methods({
     }else{
       throw new Meteor.Error('nouser');
     } 
+  },
+
+  setAlertesRead: (channelid, userid) => {
+    //console.log(channelid, userid);
+    Alertes.update({ 'options.channelId':channelid, userId: userid }, { $set:{ status:'read' } }, { multi:true });
   }
 });
 

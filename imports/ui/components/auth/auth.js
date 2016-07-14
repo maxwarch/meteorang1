@@ -22,10 +22,6 @@ class Auth{
 
 			currentUser() {
 				return Meteor.user();
-			},
-
-			test(){
-				return 'ok'
 			}
 		})
 
@@ -49,12 +45,6 @@ class Auth{
 	      })
 	    );
 	  }
-
-	logout(){
-		console.log('ok')
-		Accounts.logout();
-	}
-
 }
 
 const name = 'auth';
