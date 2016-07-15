@@ -22,8 +22,6 @@ class App {
 			}
 		);
 	}
-
-
 }
 
 const name = 'app';
@@ -54,5 +52,4 @@ export default angular.module(name, [
 .run(function($rootScope, $document, $state) {
 	'ngInject';
    $rootScope.$state = $state.current.name;
-   if(!Meteor.userId()) console.log('ok')
 })
