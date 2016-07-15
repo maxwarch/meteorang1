@@ -2,7 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 
-import template from './navigation.html';
+import template from './mainHeader.html';
 import { name as PartiesList } from '../partiesList/partiesList';
 import { name as PartiesDetails } from '../partyDetails/partyDetails';
 import { name as Auth } from '../auth/auth';
@@ -10,7 +10,7 @@ import { name as AuthButton } from '../auth/auth.component';
 import { name as Message } from '../message/message';
 
 
-class Navigation{
+class MainHeader{
 	constructor($scope, $reactive){
 		'ngInject';
 		$reactive(this).attach($scope);
@@ -20,7 +20,7 @@ class Navigation{
 	}
 }
 
-const name = 'navigation';
+const name = 'mainHeader';
 
 // create a module
 export default angular.module(name, [
@@ -35,5 +35,5 @@ export default angular.module(name, [
 .component(name, {
   templateUrl:template,
   controllerAs: name,
-  controller:Navigation
+  controller:MainHeader
 })

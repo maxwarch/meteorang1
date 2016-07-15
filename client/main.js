@@ -4,10 +4,11 @@ import uiRouter from 'angular-ui-router';
 
 import 'angular-i18n/angular-locale_fr-fr';
 
-import { name as Navigation } from '../imports/ui/components/navigation/navigation';
+import { name as MainHeader } from '../imports/ui/components/mainHeader/mainHeader';
 import { name as Users } from '../imports/ui/components/users/users';
 import { name as Chat } from '../imports/ui/components/chat/chat';
 import { name as Home } from '../imports/ui/components/home/home';
+require('../imports/api/adminLTE/app');
 
 _ = lodash;
 
@@ -21,6 +22,8 @@ class App {
 			}
 		);
 	}
+
+
 }
 
 const name = 'app';
@@ -29,7 +32,7 @@ const name = 'app';
 export default angular.module(name, [
   angularMeteor,
   uiRouter,
-  Navigation,
+  MainHeader,
   Home,
   Chat,
   Users
@@ -48,7 +51,8 @@ export default angular.module(name, [
   $urlRouterProvider.otherwise('/');
 })
 
-.run(function($rootScope, $state) {
+.run(function($rootScope, $document, $state) {
 	'ngInject';
-   	$rootScope.$state = $state.current.name;
+   $rootScope.$state = $state.current.name;
+   if(!Meteor.userId()) console.log('ok')
 })

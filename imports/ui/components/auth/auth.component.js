@@ -36,12 +36,22 @@ class AuthButton{
 const name = 'authButton';
 
 export default angular.module(name, [
-	angularMeteor, 
+	angularMeteor,
 	MonCompte
 ])
 
-.component(name, {
+/*.component(name, {
 	templateUrl:template,
 	controller:AuthButton,
 	controllerAs:name
+})*/
+
+.directive(name, function(){
+	return {
+		restrict:'E',
+		templateUrl:template, 
+		controller:AuthButton,
+		controllerAs:name,
+		replace:true
+	}
 })

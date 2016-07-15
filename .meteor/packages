@@ -20,7 +20,7 @@ accounts-password
 accounts-base
 alethes:lodash
 dotansimha:accounts-ui-angular
-jquery
+jquery 
 massimilianomarini:bootstrap-3-cdn
 reywood:publish-composite
 jalik:ufs
