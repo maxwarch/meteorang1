@@ -4,10 +4,9 @@ import uiRouter from 'angular-ui-router';
 
 import 'angular-i18n/angular-locale_fr-fr';
 
-import { name as MainHeader } from '../imports/ui/components/mainHeader/mainHeader';
-import { name as Users } from '../imports/ui/components/users/users';
-import { name as Chat } from '../imports/ui/components/chat/chat';
-import { name as Home } from '../imports/ui/components/home/home';
+import base from '../imports/ui/layouts/base/base.html';
+import { name as LayoutBase } from '../imports/ui/layouts/base/base';
+
 require('../imports/api/adminLTE/app');
 
 _ = lodash;
@@ -29,20 +28,30 @@ const name = 'app';
 // create a module
 export default angular.module(name, [
   angularMeteor,
-  uiRouter,
-  MainHeader,
-  Home,
-  Chat,
-  Users
+  uiRouter
 ])
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
   'ngInject';
 
   $stateProvider
-  	.state('app', {
+    .state('master',{
+      abstract: true,
+      url: '',
+      views: {
+        'base': {
+          template: '<div ui-view="container"></div>'
+        }
+      }
+    })
+  	.state('master.home', {
       	url: '/',
-      	template: '<home></home>'
+        views:{
+          'container@master':{
+            templateUrl:base,
+            controller:LayoutBase
+          }
+        }
     });
 
   $locationProvider.html5Mode(true);
