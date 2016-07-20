@@ -52,28 +52,40 @@ export default angular.module(name, [
 	uiRouter
 ])
 
-.config(function($stateProvider, $urlRouterProvider) {
-  'ngInject';
+.config(function($stateProvider) {
+  	'ngInject';
 
-  $stateProvider
-    .state('moncompte', {
-        url: '/mon-compte',
-        controllerAs: name,
-        controller: MonCompte,
-        templateUrl: template,
-        resolve:{
-        	getUser:function($q, $state){
-        		let deferred = $q.defer();
-        		Meteor.call('getUser', Meteor.userId(), (err, result) => {
-					if(!err){
-						deferred.resolve(result) 
-					}else{
-						$state.go('app');
-						deferred.reject
-					}
-				});
-				return deferred.promise;
-        	}
-        }
+  	$stateProvider
+    	.state('home.moncompte', {
+	        url: '/mon-compte',
+	        views:{
+	        	'content@home':{
+		        	controllerAs: name,
+			        controller: MonCompte,
+			        templateUrl: template,
+			    },
+			    'title@home':{
+			    	template:'Mon compte'
+			    },
+			    'description@home':{
+			    	template:'Informations sur votre profil'
+			    }
+	        },
+        	
+
+	        resolve:{
+	        	getUser:function($q, $state){
+	        		let deferred = $q.defer();
+	        		Meteor.call('getUser', Meteor.userId(), (err, result) => {
+						if(!err){
+							deferred.resolve(result) 
+						}else{
+							$state.go('app');
+							deferred.reject
+						}
+					});
+					return deferred.promise;
+	        	}
+	        }
     })
 })

@@ -5,8 +5,8 @@ import uiRouter from 'angular-ui-router';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
-import { name as MonCompte } from '../moncompte/moncompte';
-import template from './auth.component.html';
+import { name as MonCompte } from '../../layouts/moncompte/moncompte';
+import template from './auth.html';
 
 class AuthButton{
 	constructor($scope, $reactive, $state){
@@ -32,7 +32,7 @@ class AuthButton{
 		        if (err) {
 		          	this.error = err;
 		        } else {
-		          	this.$state.go('master.login');
+		          	this.$state.go('login');
 		        }
 		    })
 		);
@@ -46,12 +46,6 @@ export default angular.module(name, [
 	angularMeteor,
 	MonCompte
 ])
-
-/*.component(name, {
-	templateUrl:template,
-	controller:AuthButton,
-	controllerAs:name
-})*/
 
 .directive(name, function(){
 	return {

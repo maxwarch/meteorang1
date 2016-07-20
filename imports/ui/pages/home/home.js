@@ -8,25 +8,25 @@ import { name as Chat } from '../../components/chat/chat';
 import { name as Home } from '../../components/home/home';
 import { name as Sidebar } from '../../components/sidebar/sidebar';
 import { name as ControlSidebar } from '../../components/controlSidebar/controlSidebar';
+import { name as Dashboard } from '../../layouts/dashboard/dashboard';
 
-import baseTpl from './base.html';
+import homeTpl from './home.html';
 
-class BaseCtrl{
+class HomeCtrl{
 	constructor($scope, $reactive, $state, isLoggin){
 		'ngInject';
 		this.$state = $state;
 		if(!isLoggin){
-      $state.go('master.login');
-    }
+	      $state.go('login');
+	    }
 
-    $('body').removeClass('login-page');
-    $('body').addClass('sidebar-mini');
-    $(document).trigger('resize');
-    //initAdminLTE();
+	    $('body').removeClass('login-page');
+	    $('body').addClass('sidebar-mini');
+	    $(document).trigger('resize');
 	}
 }
 
-const name = 'baseCtrl';
+const name = 'homeCtrl';
 
 export default angular.module(name, [
 	angularMeteor,
@@ -35,21 +35,18 @@ export default angular.module(name, [
 	Users,
 	Chat,
 	Sidebar,
-	ControlSidebar
+	ControlSidebar,
+	Dashboard
 ])
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
   'ngInject';
 
   $stateProvider
-  	.state('master.home', {
-      	url: '/',
-        views:{
-          'container@master':{
-            templateUrl:baseTpl,
-            controller:BaseCtrl,
-          }
-        },
+  	.state('home', {
+      	url: '/home',
+      	templateUrl:homeTpl,
+		controller:HomeCtrl,
         resolve:{
           isLoggin:function(){
             return !!Meteor.userId();

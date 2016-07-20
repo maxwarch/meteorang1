@@ -141,7 +141,6 @@ $.AdminLTE.options = {
 $.AdminLTE.initAdminLTE = function(){ 
 //$(function () {
   "use strict";
-console.log('initAdminLTE')
   //Fix for IE page transitions
   $("body").removeClass("hold-transition");
 
@@ -454,8 +453,8 @@ function _init() {
 
       //Listen to the click event
       $(document).on('click', o.toggleBtnSelector, function (e) {
-        console.log('ok')
         e.preventDefault();
+        sidebar = $(o.selector);
         //If the sidebar is not open
         if (!sidebar.hasClass('control-sidebar-open')
           && !$('body').hasClass('control-sidebar-open')) {

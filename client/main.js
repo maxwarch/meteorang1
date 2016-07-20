@@ -4,9 +4,9 @@ import uiRouter from 'angular-ui-router';
 
 import 'angular-i18n/angular-locale_fr-fr';
 
-import { name as LoginLayout } from '../imports/ui/layouts/login/login';
-import { name as BaseLayout } from '../imports/ui/layouts/base/base';
-import { name as RegisterLayout } from '../imports/ui/layouts/register/register';
+import { name as LoginPage } from '../imports/ui/pages/login/login';
+import { name as HomePage } from '../imports/ui/pages/home/home';
+import { name as RegisterPage } from '../imports/ui/pages/register/register';
 
 
 require('../imports/api/adminLTE/app');
@@ -19,27 +19,23 @@ const name = 'app';
 export default angular.module(name, [
   angularMeteor,
   uiRouter,
-  BaseLayout,
-  LoginLayout,
-  RegisterLayout
+  HomePage,
+  LoginPage,
+  RegisterPage
 ])
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
   'ngInject';
 
-  $stateProvider
+  /*$stateProvider
     .state('master',{
       abstract: true,
-      //url: '',
-      views: {
-        'base': {
-          template: '<div ui-view="container"></div>'
-        }
-      }
-    });
+      url: '',
+      template: '<div ui-view></div>'
+    });*/
 
   $locationProvider.html5Mode(true);
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/home/dashboard');
 })
 
 .run(function($rootScope, $document, $state) {

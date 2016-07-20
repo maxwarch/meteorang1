@@ -11,7 +11,7 @@ class Register{
 	constructor($scope, $reactive, $state, isLoggin){
 		'ngInject';
 		if(isLoggin){
-	      $state.go('master.home');
+	      $state.go('home');
 	    }
 		this.$state = $state;
 
@@ -43,7 +43,7 @@ class Register{
 	        if (err) {
 	          this.error = err;
 	        } else {
-	          this.$state.go('master.home');
+	          this.$state.go('home');
 	        }
 	      })
 	    );
@@ -60,15 +60,18 @@ export default angular.module(name, [
   'ngInject';
 
   $stateProvider
-    .state('master.register', {
+    .state('register', {
         url: '/register',
-        views:{
+        templateUrl:template,
+		controller:Register,
+		controllerAs:name,
+        /*views:{
 			'container@master':{
 				templateUrl:template,
 				controller:Register,
 				controllerAs:name
 			}
-		},
+		},*/
         resolve:{
           isLoggin:function(){
             return !!Meteor.userId();

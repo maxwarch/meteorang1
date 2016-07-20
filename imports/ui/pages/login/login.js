@@ -11,7 +11,7 @@ class LoginCtrl{
 		'ngInject'; 
 
 		if(isLoggin){
-	      $state.go('master.home');
+	      $state.go('home');
 	    }
 
 		this.$state = $state;
@@ -46,7 +46,7 @@ class LoginCtrl{
 					this.error = err;
 					console.log(err)
 				} else {
-					this.$state.go('master.home');
+					this.$state.go('home');
 				}
 			})
 		);
@@ -65,15 +65,18 @@ export default angular.module(name, [
 	'ngInject';
 
 	$stateProvider
-	.state('master.login', {
+	.state('login', {
 		url: '/login',
-		views:{
+		templateUrl:loginTpl,
+		controller:LoginCtrl,
+		controllerAs:name,
+		/*views:{
 			'container@master':{
 				templateUrl:loginTpl,
 				controller:LoginCtrl,
 				controllerAs:name
 			}
-		},
+		},*/
         resolve:{
           isLoggin:function(){
             return !!Meteor.userId();
