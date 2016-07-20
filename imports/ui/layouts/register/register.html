@@ -1,0 +1,68 @@
+<div class="register-box">
+	<div class="register-logo">
+		<a href="../../index2.html"><b>Admin</b>LTE</a>
+	</div>
+
+	<div class="register-box-body">
+		<p class="login-box-msg">S'enregistrer</p>
+			<form name="inscriptionForm" ng-submit="register.inscription()" novalidate>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group has-feedback" ng-class="{'has-error':inscriptionForm.nom.$invalid && !inscriptionForm.nom.$pristine}">
+							<label class="control-label" for="nom" ng-show="inscriptionForm.nom.$invalid && !inscriptionForm.nom.$pristine"><i class="fa fa-bell-o"></i> Le nom est obligatoire</label>
+							<div class="form-relative">
+								<input ng-model="register.infos.profile.nom" type="text" class="form-control" placeholder="Nom" name="nom" id="nom" required>
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+						</div>
+						<div class="form-group has-feedback" ng-class="{'has-error':inscriptionForm.prenom.$invalid && !inscriptionForm.prenom.$pristine}">
+							<label class="control-label" for="prenom" ng-show="inscriptionForm.prenom.$invalid && !inscriptionForm.prenom.$pristine"><i class="fa fa-bell-o"></i> Le prénom est obligatoire</label>
+							<div class="form-relative">
+								<input ng-model="register.infos.profile.prenom" id="inputWarning" type="text" class="form-control" placeholder="Prénom" name="prenom" id="prenom" required>
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+						</div>
+						<div class="form-group has-feedback" ng-class="{'has-error':inscriptionForm.pseudo.$invalid && !inscriptionForm.pseudo.$pristine}">
+							<label class="control-label" for="pseudo" ng-show="inscriptionForm.pseudo.$invalid && !inscriptionForm.pseudo.$pristine"><i class="fa fa-bell-o"></i> Le pseudo est obligatoire</label>
+							<div class="form-relative">
+								<input ng-model="register.infos.profile.pseudo" type="text" class="form-control" placeholder="Pseudo" name="pseudo" id="pseudo" required>
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+						</div>
+						<div class="form-group has-feedback" ng-class="{'has-error':inscriptionForm.email.$invalid && !inscriptionForm.email.$pristine}">
+							<label class="control-label" for="email" ng-show="inscriptionForm.email.$error.emailValid && !inscriptionForm.email.$pristine"><i class="fa fa-bell-o"></i> L'email doit être valide</label>
+							<div class="form-relative">
+								<input ng-model="register.infos.email" email-validator type="email" class="form-control" placeholder="Email" name="email" id="email" required>
+								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+							</div>
+						</div>
+						<div class="form-group has-feedback" ng-class="{'has-error':inscriptionForm.password.$invalid && !inscriptionForm.password.$pristine}">
+							<label class="control-label" for="password" ng-show="inscriptionForm.password.$invalid && !inscriptionForm.password.$pristine"><i class="fa fa-bell-o"></i> Le mot de passe est obligatoire</label>
+							<div class="form-relative">
+								<input ng-model="register.infos.password" type="password" class="form-control" placeholder="Mot de passe" name="password" id="password" required>
+								<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			    <div class="row">
+			      	<div class="col-xs-6 col-xs-offset-3">
+			      		<button type="submit" class="btn btn-primary btn-flat" ng-disabled="inscriptionForm.$invalid">S'enregistrer</button>
+			      	</div>
+			      <!-- /.col -->
+			  	</div>
+			</form>
+
+	    <!-- <div class="social-auth-links text-center">
+	      <p>- OR -</p>
+	      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
+	        Facebook</a>
+	      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
+	        Google+</a>
+	    </div> -->
+
+	    <a ui-sref="master.login" class="text-center">Je suis déjà inscrit</a>
+	</div>
+	<!-- /.form-box -->
+</div>
+<!-- /.register-box -->

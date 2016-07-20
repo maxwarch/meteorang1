@@ -4,31 +4,24 @@ import uiRouter from 'angular-ui-router';
 
 import 'angular-i18n/angular-locale_fr-fr';
 
-import base from '../imports/ui/layouts/base/base.html';
-import { name as LayoutBase } from '../imports/ui/layouts/base/base';
+import { name as LoginLayout } from '../imports/ui/layouts/login/login';
+import { name as BaseLayout } from '../imports/ui/layouts/base/base';
+import { name as RegisterLayout } from '../imports/ui/layouts/register/register';
+
 
 require('../imports/api/adminLTE/app');
 
 _ = lodash;
-
-class App {
-	constructor($rootScope, $state){
-		'ngInject';
-
-		$rootScope.$on('$stateChangeStart',
-			function(event, toState, toParams, fromState, fromParams){
-				$rootScope.currentState = toState.name;
-			}
-		);
-	}
-}
 
 const name = 'app';
 
 // create a module
 export default angular.module(name, [
   angularMeteor,
-  uiRouter
+  uiRouter,
+  BaseLayout,
+  LoginLayout,
+  RegisterLayout
 ])
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -37,21 +30,12 @@ export default angular.module(name, [
   $stateProvider
     .state('master',{
       abstract: true,
-      url: '',
+      //url: '',
       views: {
         'base': {
           template: '<div ui-view="container"></div>'
         }
       }
-    })
-  	.state('master.home', {
-      	url: '/',
-        views:{
-          'container@master':{
-            templateUrl:base,
-            controller:LayoutBase
-          }
-        }
     });
 
   $locationProvider.html5Mode(true);
@@ -60,5 +44,12 @@ export default angular.module(name, [
 
 .run(function($rootScope, $document, $state) {
 	'ngInject';
-   $rootScope.$state = $state.current.name;
+  var script   = document.createElement("script");
+  script.type  = "text/javascript";
+  script.src   = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js";
+
+  script.onload = $.AdminLTE.initAdminLTE
+  document.body.appendChild(script);
+
+  $rootScope.$state = $state.current.name;
 })

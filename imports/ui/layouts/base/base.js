@@ -9,20 +9,26 @@ import { name as Home } from '../../components/home/home';
 import { name as Sidebar } from '../../components/sidebar/sidebar';
 import { name as ControlSidebar } from '../../components/controlSidebar/controlSidebar';
 
-import template from './base.html';
+import baseTpl from './base.html';
 
 class BaseCtrl{
-	constructor($scope, $reactive, $state){
+	constructor($scope, $reactive, $state, isLoggin){
 		'ngInject';
 		this.$state = $state;
+		if(!isLoggin){
+      $state.go('master.login');
+    }
 
-console.log('ok')
+    $('body').removeClass('login-page');
+    $('body').addClass('sidebar-mini');
+    $(document).trigger('resize');
+    //initAdminLTE();
 	}
 }
 
 const name = 'baseCtrl';
 
-export default angular.module('base', [
+export default angular.module(name, [
 	angularMeteor,
 	uiRouter,
 	MainHeader,
@@ -32,9 +38,22 @@ export default angular.module('base', [
 	ControlSidebar
 ])
 
-.controller(name, BaseCtrl)
-/*.component(name, {
-	templateUrl:template,
-	controller:Base,
-	controllerAs:name
-})*/
+.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+  'ngInject';
+
+  $stateProvider
+  	.state('master.home', {
+      	url: '/',
+        views:{
+          'container@master':{
+            templateUrl:baseTpl,
+            controller:BaseCtrl,
+          }
+        },
+        resolve:{
+          isLoggin:function(){
+            return !!Meteor.userId();
+          }
+        }
+    });
+})

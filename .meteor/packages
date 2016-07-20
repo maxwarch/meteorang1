@@ -21,7 +21,8 @@ accounts-base
 alethes:lodash
 dotansimha:accounts-ui-angular
 jquery 
-massimilianomarini:bootstrap-3-cdn
+#twbs:bootstrap
+#massimilianomarini:bootstrap-3-cdn
 reywood:publish-composite
 jalik:ufs
 jalik:ufs-gridfs

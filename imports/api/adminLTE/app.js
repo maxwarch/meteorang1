@@ -137,11 +137,11 @@ $.AdminLTE.options = {
  * functions and plugins as specified by the
  * options above.
  */
-$(document).ready(function(){
-  
+//$(document).ready(function(){
+$.AdminLTE.initAdminLTE = function(){ 
 //$(function () {
   "use strict";
-
+console.log('initAdminLTE')
   //Fix for IE page transitions
   $("body").removeClass("hold-transition");
 
@@ -220,7 +220,7 @@ $(document).ready(function(){
     });
 
   });
-});
+};
 
 /* ----------------------------------
  * - Initialize the AdminLTE Object -
@@ -453,7 +453,8 @@ function _init() {
       var btn = $(o.toggleBtnSelector);
 
       //Listen to the click event
-      btn.on('click', function (e) {
+      $(document).on('click', o.toggleBtnSelector, function (e) {
+        console.log('ok')
         e.preventDefault();
         //If the sidebar is not open
         if (!sidebar.hasClass('control-sidebar-open')

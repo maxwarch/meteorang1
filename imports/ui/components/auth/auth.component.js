@@ -27,8 +27,15 @@ class AuthButton{
 	}
 
 	logout(){
-		Accounts.logout();
-		this.$state.go('app')
+		Accounts.logout(
+			this.$bindToContext((err) => {
+		        if (err) {
+		          	this.error = err;
+		        } else {
+		          	this.$state.go('master.login');
+		        }
+		    })
+		);
 	}
 
 }

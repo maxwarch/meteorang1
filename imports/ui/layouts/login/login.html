@@ -1,0 +1,60 @@
+<div class="login-box">
+	<div class="login-logo">
+		<a href="#"><b>Meteor</b></a>
+	</div>
+	<!-- /.login-logo -->
+	<div class="login-box-body">
+		<p class="login-box-msg">Connectez-vous</p>
+
+		<form name="loginForm" ng-submit="loginCtrl.login()" novalidate>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="alert alert-danger" ng-show="loginCtrl.error">Impossible de vous identifier</div>
+					<div class="form-group has-feedback" ng-class="{'has-error':loginForm.email.$invalid && !loginForm.email.$pristine && loginForm.email.$touched}">
+						<label class="control-label" for="email" ng-show="loginForm.email.$invalid && !loginForm.email.$pristine"><i class="fa fa-bell-o"></i> L'email doit être valide</label>
+						<div class="form-relative">
+							<input ng-model="loginCtrl.credentials.email" email-validator type="email" class="form-control" placeholder="Email" name="email" id="email" required>
+							<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+						</div>
+					</div>
+					<div class="form-group has-feedback" ng-class="{'has-error':loginForm.password.$invalid && !loginForm.password.$pristine}">
+						<label class="control-label" for="password" ng-show="loginForm.password.$invalid && !loginForm.password.$pristine"><i class="fa fa-bell-o"></i> Le mot de passe est obligatoire</label>
+						<div class="form-relative">
+							<input ng-model="loginCtrl.credentials.password" type="password" class="form-control" placeholder="Password" name="password" id="password" required>
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+						<div class="form-relative">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-8">
+					<div class="checkbox">
+						<input id="remember" type="checkbox"> 
+						<label for="remember" class="side-label">
+							Se souvenir de moi
+						</label>
+					</div>
+				</div>
+				<!-- /.col -->
+				<div class="col-xs-4">
+					<button ng-disabled="loginForm.$invalid" type="submit" class="btn btn-primary btn-flat">Connexion</button>
+				</div>
+				<!-- /.col -->
+			</div>
+		</form>
+
+		<!-- <div class="social-auth-links text-center">
+			<p>- OR -</p>
+			<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+				Facebook</a>
+			<a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
+		</div> -->
+		<!-- /.social-auth-links -->
+
+		<a href="#">Oubli de mot de passe</a><br>
+		<a ui-sref="master.register" class="text-center">S'enregistrer</a>
+
+	</div>
+	<!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
