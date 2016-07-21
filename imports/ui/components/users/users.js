@@ -5,6 +5,7 @@ import uiRouter from 'angular-ui-router';
 import { name as usersService } from '../../../api/users/users.service';
 import { name as chatService } from '../../../api/chat/chat.service';
 import template from './users.html';
+import userTpl from './user.html';
 
 const name = 'users';
 
@@ -62,7 +63,7 @@ export default angular.module(name, [
 })
 
 .component('user', {
-	template:'<a href="#" ng-click="user.newChat()">{{ user.chatter.profile.pseudo }}</a>',
+	templateUrl:userTpl,
 	controller:User,
 	controllerAs:'user',
 	bindings:{

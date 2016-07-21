@@ -18,6 +18,11 @@ export default angular.module(name, [])
 		return Users.find({ $and:[{ 'status.online': true, _id:{$ne:Meteor.userId()} }] });
 	}
 
+	this.nbConnected = function(){
+		Meteor.subscribe('userstatus');
+		return Users.find({ $and:[{ 'status.online': true, _id:{$ne:Meteor.userId()} }] }).count();
+	}
+
 	this.userIsOnline = function(id){
 		return Users.find(id);
 	}

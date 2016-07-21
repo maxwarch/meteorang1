@@ -109,7 +109,7 @@ export default angular.module(name, ['alertesService'])
 
 			if(!chatboxId){
 				var el = $compile('<chat chatters="' + chattersId.join(',') + '" channel="' + channelid + '"></chat>')($scope);
-				$($document[0].body).find('#main').append(el);
+				$($document[0].body).find('#main').append(el); 
 			}else{
 				$rootScope.$broadcast('chatbox-reveal', channelid);
 			}

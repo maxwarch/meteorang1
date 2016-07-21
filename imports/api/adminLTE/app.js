@@ -392,7 +392,7 @@ function _init() {
       .on('click', menu + ' li a', function (e) {
         //Get the clicked link and the next element
         var $this = $(this);
-        var checkElement = $this.next();
+        var checkElement = $this.next().find('ul');
 
         //Check if the next element is a menu and is visible
         if ((checkElement.is('.treeview-menu')) && (checkElement.is(':visible')) && (!$('body').hasClass('sidebar-collapse'))) {

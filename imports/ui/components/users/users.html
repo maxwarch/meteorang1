@@ -1,10 +1,4 @@
-<div class="row users" ng-show="users.isLoggedIn">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		users
-		<ul ng-show="users.online">
-			<li ng-repeat="user in users.online"><user chatter="user"></user></li>
-		</ul>
-		<p ng-show="users.online.length == 0">Pas d'utilisateur en ligne</p>
-	</div>
-</div>
-
+<ul class="treeview-menu" ng-show="users.online">
+	<li ng-repeat="user in users.online"><user chatter="user"></user></li>
+	<li ng-show="users.online.length == 0">Pas d'utilisateur en ligne</li>
+</ul>

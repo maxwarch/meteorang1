@@ -88,11 +88,14 @@
   margin: 0;
   padding: 0;
   //First Level
-  > li {
+   li {
     position: relative;
     margin: 0;
     padding: 0;
-    > a {
+    span.label{
+      margin-left:10px;
+    }
+     a {
       padding: 12px 5px 12px 15px;
       display: block;
       > .fa,
@@ -120,10 +123,10 @@
     margin-right: 10px;
   }
   li.active {
-    > a > .pull-right-container > .fa-angle-left {
+     a > .pull-right-container > .fa-angle-left {
       .rotate(-90deg);
     }
-    > .treeview-menu {
+     .treeview-menu {
       display: block;
     }
   }
@@ -138,9 +141,9 @@
     .treeview-menu {
       padding-left: 20px;
     }
-    > li {
+     li {
       margin: 0;
-      > a {
+       a {
         padding: 5px 5px 5px 15px;
         display: block;
         font-size: 14px;

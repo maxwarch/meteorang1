@@ -33,15 +33,12 @@
 			<li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
 			<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
 			<li class="treeview">
-				<a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-					<span class="pull-right-container">
+				<a href="#"><i class="fa fa-link"></i> <span>Connectés</span> <span class="label label-success">{{ sidebar.online }}</span>
+					<span class="pull-right-container" ng-show="sidebar.online > 0">
 						<i class="fa fa-angle-left pull-right"></i>
 					</span>
 				</a>
-				<ul class="treeview-menu">
-					<li><a href="#">Link in level 2</a></li>
-					<li><a href="#">Link in level 2</a></li>
-				</ul>
+				<users></users>
 			</li>
 		</ul>
 		<!-- /.sidebar-menu -->
