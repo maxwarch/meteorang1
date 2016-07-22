@@ -39,7 +39,9 @@ class Chat{
 
 		this.btCollapse = $($element).find('.panel-heading span.icon_minim');
 		this.btClose = $($element).find('.panel-heading span.icon_close');
-
+		
+		//console.log($($element), $($element).find('.direct-chat-messages'))
+		//$($element).find('.direct-chat-messages').scrollTop($($element).find('.direct-chat-messages')[0].scrollHeight);
 		var self = this;
 
 		this.btCollapse.on('click', function(e){
