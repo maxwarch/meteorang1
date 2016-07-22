@@ -52,10 +52,14 @@ export default angular.module(name, [
 	chatService
 ])
 
-.component(name, {
-	templateUrl:template,
-	controller:Message,
-	controllerAs:name
+.directive(name, function(){
+	return {
+		restrict:'E',
+		replace:true,
+		templateUrl:template,
+		controller:Message,
+		controllerAs:name
+	}
 })
 
 .component('messageItem', {

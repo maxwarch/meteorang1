@@ -54,7 +54,8 @@ export default angular.module(name, ['alertesService'])
 	}
 
 	this.close = function(channelid){
-		this.chatboxes.splice(this.chatboxes.indexOf(channelid), 1);
+		this.chatboxes.splice(this.findChatbox(channelid), 1);
+		$rootScope.$broadcast('chatbox-destroy');
 	}
 
 	this.getMessages = function(channelId){
@@ -119,11 +120,15 @@ export default angular.module(name, ['alertesService'])
 	}
 
 	this.findChatbox = function(channelid){
-		return (this.chatboxes) ? this.chatboxes.indexOf(channelid) != -1 : null;
+		return (this.chatboxes) ? _.find(this.chatboxes, {channel:channelid}) : null;
 	}
 
-	this.registerChatbox = function(channelid){
+	this.registerChatbox = function(channelid, element){
 		if(!this.chatboxes) this.chatboxes = [];
-		this.chatboxes.push(channelid);
+		this.chatboxes.push({channel:channelid, element:element});
+	}
+
+	this.getChatboxes = function(){
+		return this.chatboxes;
 	}
 })

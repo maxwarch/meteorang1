@@ -1,4 +1,13 @@
-<a href="#" class="list-group-item">
-	<h4 class="list-group-item-heading">{{ messageItem.message.owner.profile.pseudo }}</h4>
-	<p class="list-group-item-text">{{ messageItem.message.message.texte }} <br><em>{{ messageItem.message.message.createdAt | date:'medium' }}</em></p>
+<a href="#">
+    <div class="pull-left">
+        <!-- User Image -->
+        <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
+    </div>
+    <!-- Message title and timestamp -->
+    <h4>
+        {{ messageItem.message.owner.profile.pseudo }}
+        <small><i class="fa fa-clock-o"></i> {{ messageItem.message.message.createdAt | date:'medium' }}</small>
+    </h4>
+    <!-- The message -->
+    <p>{{ messageItem.message.message.texte | limitTo:30 }}</p>
 </a>

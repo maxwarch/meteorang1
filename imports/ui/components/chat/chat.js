@@ -16,12 +16,30 @@ class Chat{
 		$reactive(this).attach($scope);
 		this.chatService = chatService;
 		this.$element = $element;
+		this.box = $($element).find('.box');
 		this.$scope = $scope;
 		this.message = '';
 		this.iscollapse = false;
 		this.$attrs = $attrs;
+		this.boxWidgetOptions = {
+									animationSpeed:500,
+								    boxWidgetIcons: {
+								      //Collapse icon
+								      collapse: 'fa-minus',
+								      //Open icon
+								      open: 'fa-plus',
+								      //Remove icon
+								      remove: 'fa-times'
+								    },
+								    boxWidgetSelectors: {
+								      //Remove button selector
+								      close: '[data-widget="remove"]',
+								      //Collapse button selector
+								      collapse: '[data-widget="collapse"]'
+								    }
+								}
 
-		chatService.registerChatbox(this.channel);
+		chatService.registerChatbox(this.channel, $($element));
 
 		this.helpers({
 			isLoggedIn(){
@@ -37,31 +55,22 @@ class Chat{
 			}
 		});
 
-		this.btCollapse = $($element).find('.panel-heading span.icon_minim');
-		this.btClose = $($element).find('.panel-heading span.icon_close');
-		
-		//console.log($($element), $($element).find('.direct-chat-messages'))
-		//$($element).find('.direct-chat-messages').scrollTop($($element).find('.direct-chat-messages')[0].scrollHeight);
-		var self = this;
+		this.place();
+		this.btCollapse = this.box.find(this.boxWidgetOptions.boxWidgetSelectors.collapse);
+		this.btClose = this.box.find(this.boxWidgetOptions.boxWidgetSelectors.close);
 
-		this.btCollapse.on('click', function(e){
-			e.preventDefault();
-			if(self.iscollapse){
-				self.maximize();
-			}else{
-				self.minimize();
-			}
-		})
+		this.btCollapse.on('click', $.proxy(this.collapse, this))
+		this.btClose.on('click', $.proxy(this.close, this))
+		$rootScope.$on('chatbox-reveal', $.proxy(this.reveal, this));
+		$rootScope.$on('chatbox-destroy', $.proxy(this.place, this));
+	}
 
-		this.btClose.on('click', function(e){
-			e.preventDefault();
-			self.close();
-		});
-
-		$rootScope.$on('chatbox-reveal', function(e, id){
-			if(id == self.channel){
-				self.maximize();
-			}
+	place(){
+		// placement des box de gauche à droite
+		var width = parseInt($(this.$element).css('width'));
+		var offset = parseInt($(this.$element).css('margin-right'));
+		_.map(this.chatService.getChatboxes(), function(item, index){
+			item.element.css('left', (width + offset)*index);
 		});
 	}
 
@@ -83,23 +92,47 @@ class Chat{
 		}
 	}
 
-	minimize(){
-        $(this.$element).find('.body-chat').slideUp();
-    	this.btCollapse.removeClass('glyphicon-minus').addClass('glyphicon-plus');
-    	this.iscollapse = true;
+	reveal(e, channelid){
+		if(this.box.hasClass("collapsed-box")) this.collapse(e, channelid);
 	}
 
-	maximize(){
-        $(this.$element).find('.body-chat').slideDown();
-	    this.btCollapse.removeClass('glyphicon-plus').addClass('glyphicon-minus');
-        this.iscollapse = false;
-	}
+	collapse(e, channelid) {
+		if(!_.isUndefined(channelid) && channelid != this.channel) return;
+		var selectors 		= this.boxWidgetOptions.boxWidgetSelectors;
+	    var icons 			= this.boxWidgetOptions.boxWidgetIcons;
+	    var animationSpeed	= this.boxWidgetOptions.animationSpeed;
+	    var _this = this;
 
-	close(){
-		this.$scope.$destroy();
+		//Find the body and the footer
+		var box_content = this.box.find("> .box-body, > .box-footer, > form  >.box-body, > form > .box-footer");
+		if (!this.box.hasClass("collapsed-box")) {
+			//Convert minus into plus
+			this.btCollapse.children(":first")
+				.removeClass(icons.collapse)
+				.addClass(icons.open);
+			//Hide the content
+			box_content.slideUp(animationSpeed, function () {
+				_this.box.addClass("collapsed-box");
+			});
+		} else {
+			//Convert plus into minus
+			this.btCollapse.children(":first")
+				.removeClass(icons.open)
+				.addClass(icons.collapse);
+			//Show the content
+			box_content.slideDown(animationSpeed, function () {
+				_this.box.removeClass("collapsed-box");
+			});
+		}
+    }
+
+    close(e) {
+    	this.btCollapse.off('click');
+    	this.btClose.off('click');
+      	this.$scope.$destroy();
 		$(this.$element).remove();
 		this.chatService.close(this.channel);
-	}
+    }
 }
 
 export default angular.module(name, [
