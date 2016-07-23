@@ -3,6 +3,8 @@ import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 
 import template from './chat.html';
+import msgLeft from './message-left.html';
+import msgRight from './message-right.html';
 import { name as usersService } from '../../../api/users/users.service';
 import { name as chatService } from '../../../api/chat/chat.service';
 
@@ -17,6 +19,7 @@ class Chat{
 		this.chatService = chatService;
 		this.$element = $element;
 		this.box = $($element).find('.box');
+		this.boxBody = this.box.find('.box-body');
 		this.$scope = $scope;
 		this.message = '';
 		this.iscollapse = false;
@@ -40,6 +43,7 @@ class Chat{
 								}
 
 		chatService.registerChatbox(this.channel, $($element));
+		var self = this;
 
 		this.helpers({
 			isLoggedIn(){
@@ -55,6 +59,11 @@ class Chat{
 			}
 		});
 
+		
+		this.$onInit = function(){
+			this.box.find('[name=message]')[0].focus();
+		}
+
 		this.place();
 		this.btCollapse = this.box.find(this.boxWidgetOptions.boxWidgetSelectors.collapse);
 		this.btClose = this.box.find(this.boxWidgetOptions.boxWidgetSelectors.close);
@@ -63,6 +72,10 @@ class Chat{
 		this.btClose.on('click', $.proxy(this.close, this))
 		$rootScope.$on('chatbox-reveal', $.proxy(this.reveal, this));
 		$rootScope.$on('chatbox-destroy', $.proxy(this.place, this));
+	}
+
+	scrollBoxBody(){
+		this.boxBody.scrollTop(this.boxBody[0].scrollHeight);
 	}
 
 	place(){
@@ -122,6 +135,7 @@ class Chat{
 			//Show the content
 			box_content.slideDown(animationSpeed, function () {
 				_this.box.removeClass("collapsed-box");
+				_this.box.find('[name=message]')[0].focus();
 			});
 		}
     }
@@ -135,10 +149,24 @@ class Chat{
     }
 }
 
-export default angular.module(name, [
+class MessageUser{
+	constructor($scope, $element, $reactive){
+		'ngInject';
+		$reactive(this).attach($scope);
+
+		this.helpers({
+
+		});
+		this.$onInit = function () {
+			this.chatCtrl.scrollBoxBody()
+		}
+	}
+}
+
+export default angular.module('chatBox', [
 	angularMeteor,
 	uiRouter,
-	usersService,
+	usersService, 
 	chatService
 ])
 .component(name, {
@@ -148,5 +176,30 @@ export default angular.module(name, [
 	},
 	templateUrl:template,
 	controller:Chat,
-	controllerAs:name
+	controllerAs:'chatbox'
 })
+.component('messageLeft', {
+	require:{
+		chatCtrl:'^chat'
+	},
+	bindings:{
+		msg:'<'
+	},
+	templateUrl:msgLeft,
+	controller:MessageUser,
+	controllerAs:'message'
+})
+.component('messageRight', {
+	require:{
+		chatCtrl:'^chat'
+	},
+	bindings:{
+		msg:'<'
+	},
+	templateUrl:msgRight,
+	controller:MessageUser,
+	controllerAs:'message'
+})
+
+
+

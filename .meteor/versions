@@ -4,7 +4,7 @@ accounts-ui@1.1.9
 accounts-ui-unstyled@1.1.12
 alethes:lodash@0.7.1
 allow-deny@1.0.5
-angular-templates@1.0.5
+angular-templates@1.0.7
 autoupdate@1.2.11
 babel-compiler@6.8.5
 babel-runtime@0.1.9_1
@@ -45,7 +45,7 @@ less@2.6.5
 livedata@1.0.18
 localstorage@1.0.11
 logging@1.0.14
-matb33:collection-hooks@0.8.1
+matb33:collection-hooks@0.8.3
 meteor@1.1.16
 meteor-base@1.0.4
 meteortoys:toykit@3.0.4
@@ -88,7 +88,7 @@ tmeasday:check-npm-versions@0.3.1
 tracker@1.0.15
 ui@1.0.11
 underscore@1.0.9
-urigo:static-html-compiler@0.1.4
+urigo:static-html-compiler@0.1.7
 url@1.0.10
 webapp@1.2.11
 webapp-hashing@1.0.9

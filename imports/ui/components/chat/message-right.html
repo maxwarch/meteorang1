@@ -1,0 +1,14 @@
+<!-- Message to the right -->
+<div class="direct-chat-msg right">
+	<div class="direct-chat-info clearfix">
+		<span class="direct-chat-name pull-right">{{ message.msg.user.profile.pseudo }}</span>
+		<span class="direct-chat-timestamp pull-left">{{ message.msg.createdAt | date:'medium' }}</span>
+	</div>
+	<!-- /.direct-chat-info -->
+	<img class="direct-chat-img" src="/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+	<div class="direct-chat-text">
+		{{ message.msg.texte }}
+	</div>
+	<!-- /.direct-chat-text -->
+</div>
+<!-- /.direct-chat-msg -->
