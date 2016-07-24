@@ -43,23 +43,19 @@ export default angular.module(name, [
 .config(function($stateProvider) {
   'ngInject';
 
-  $stateProvider.state('details', {
-      parent:'parties',
-      url: '/:partyId',
-      templateUrl: template,
-      controllerAs: name,
-      controller: PartyDetails,
-      /*resolve:{
-        p:function($q){
-          var deferred = $q.defer();
-   
-          Meteor.subscribe('parties', {
-            onReady: deferred.resolve,
-            onStop: deferred.reject
-          });
-     
-          return deferred.promise;
-        }
-      }*/
+  $stateProvider.state('home.parties.detail', {
+    url: '/detail/:partyId',
+    views:{
+      'content@home':{
+        controllerAs: name,
+        controller: PartyDetails,
+        templateUrl: template,
+      },
+      'title@home':{
+        template:'Détail de <em>{{ partyDetails.party.name }}</em>',
+        controller: PartyDetails,
+        controllerAs: name,
+      }
+    }
   });
 })

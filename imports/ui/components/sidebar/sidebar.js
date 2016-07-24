@@ -3,6 +3,7 @@ import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 
 import { name as usersService } from '../../../api/users/users.service';
+import { name as PartiesList } from '../partiesList/partiesList';
 import { name as Users } from '../users/users';
 
 import template from './sidebar.html';
@@ -28,7 +29,8 @@ export default angular.module(name, [
 	angularMeteor,
 	uiRouter,
 	Users,
-	usersService
+	usersService,
+	PartiesList
 ])
 
 .component(name, {

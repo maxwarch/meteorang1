@@ -50,14 +50,22 @@ export default angular.module(name, [
   PartyImage
 ])
 
+
 .config(function($stateProvider, $urlRouterProvider) {
   'ngInject';
 
   $stateProvider
-    .state('parties', {
-        url: '/parties',
-        controllerAs: name,
-        controller: PartiesList,
-        templateUrl: template
+    .state('home.parties', {
+      url: '/parties',
+      views:{
+        'content@home':{
+          controllerAs: name,
+          controller: PartiesList,
+          templateUrl: template,
+        },
+        'title@home':{
+          template:'Liste des parties'
+        }
+      }
     })
 })
