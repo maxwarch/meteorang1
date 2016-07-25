@@ -22,7 +22,7 @@ class Chat{
 		this.boxBody = this.box.find('.box-body');
 		this.$scope = $scope;
 		this.message = '';
-		this.iscollapse = false;
+		this.iscollapse = new ReactiveVar(false);
 		this.$attrs = $attrs;
 		this.boxWidgetOptions = {
 									animationSpeed:500,
@@ -56,22 +56,30 @@ class Chat{
 
 			myId(){
 				return Meteor.userId();
+			},
+
+			checkAlertes(){
+				return chatService.getNewAlertes();
+			},
+
+			isCollapse(){
+				return this.iscollapse.get();
 			}
 		});
 
 		
 		this.$onInit = function(){
 			this.box.find('[name=message]')[0].focus();
+
+			this.place();
+			this.btCollapse = this.box.find(this.boxWidgetOptions.boxWidgetSelectors.collapse);
+			this.btClose = this.box.find(this.boxWidgetOptions.boxWidgetSelectors.close);
+
+			this.btCollapse.on('click', $.proxy(this.collapse, this))
+			this.btClose.on('click', $.proxy(this.close, this))
+			$rootScope.$on('chatbox-reveal', $.proxy(this.reveal, this));
+			$rootScope.$on('chatbox-destroy', $.proxy(this.place, this));
 		}
-
-		this.place();
-		this.btCollapse = this.box.find(this.boxWidgetOptions.boxWidgetSelectors.collapse);
-		this.btClose = this.box.find(this.boxWidgetOptions.boxWidgetSelectors.close);
-
-		this.btCollapse.on('click', $.proxy(this.collapse, this))
-		this.btClose.on('click', $.proxy(this.close, this))
-		$rootScope.$on('chatbox-reveal', $.proxy(this.reveal, this));
-		$rootScope.$on('chatbox-destroy', $.proxy(this.place, this));
 	}
 
 	scrollBoxBody(){
@@ -119,6 +127,7 @@ class Chat{
 		//Find the body and the footer
 		var box_content = this.box.find("> .box-body, > .box-footer, > form  >.box-body, > form > .box-footer");
 		if (!this.box.hasClass("collapsed-box")) {
+			this.iscollapse.set(true);
 			//Convert minus into plus
 			this.btCollapse.children(":first")
 				.removeClass(icons.collapse)
@@ -128,6 +137,7 @@ class Chat{
 				_this.box.addClass("collapsed-box");
 			});
 		} else {
+			this.iscollapse.set(false);
 			//Convert plus into minus
 			this.btCollapse.children(":first")
 				.removeClass(icons.open)
@@ -136,8 +146,10 @@ class Chat{
 			box_content.slideDown(animationSpeed, function () {
 				_this.box.removeClass("collapsed-box");
 				_this.box.find('[name=message]')[0].focus();
+				_this.scrollBoxBody()
 			});
 		}
+		this.chatService.collapse(this.channel, this.iscollapse.get());
     }
 
     close(e) {
@@ -157,6 +169,7 @@ class MessageUser{
 		this.helpers({
 
 		});
+
 		this.$onInit = function () {
 			this.chatCtrl.scrollBoxBody()
 		}

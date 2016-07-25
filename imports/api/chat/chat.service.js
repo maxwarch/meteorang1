@@ -58,6 +58,11 @@ export default angular.module(name, ['alertesService'])
 		$rootScope.$broadcast('chatbox-destroy');
 	}
 
+	this.collapse = function(channelid, collapse){
+		this.findChatbox(channelid).collapse = collapse;
+		if(!collapse) alertesService.setRead(channelid);
+	}
+
 	this.getMessages = function(channelId){
 		return Messages.find({channelId:channelId}, {sort:{createdAt:1}}).map(function(doc){
 			doc.user = Users.findOne(doc.owner);
@@ -65,11 +70,12 @@ export default angular.module(name, ['alertesService'])
 		})
 	}
 
-	this.sendMessage = function(message, users, channelId){
+	this.sendMessage = function(message, users, channelid){
 		var self = this;
 
+		alertesService.setRead(channelid);
 		return Messages.insert({
-					channelId:channelId,
+					channelId:channelid,
 					owner:Meteor.userId(),
 					texte:message,
 					createdAt:new Date()
@@ -86,7 +92,7 @@ export default angular.module(name, ['alertesService'])
 															type:'message', 
 															status:'open', 
 															options:{
-																channelId:channelId,
+																channelId:channelid,
 																messageId:messageId
 															},
 															createdAt:new Date()
@@ -94,7 +100,7 @@ export default angular.module(name, ['alertesService'])
 											}
 										});
 
-						alertesService.newAlerte(inserts);
+						alertesService.insertAlerte(inserts);
 					}
 				})
 	}
@@ -119,16 +125,27 @@ export default angular.module(name, ['alertesService'])
 		});
 	}
 
-	this.findChatbox = function(channelid){
-		return (this.chatboxes) ? _.find(this.chatboxes, {channel:channelid}) : null;
+	this.findChatbox = function(channelid, collapse){
+		var search = {channel:channelid};
+		if(collapse) search.collapse = collapse
+		var r = (this.chatboxes.length) ? _.find(this.chatboxes, search) : null;
+		return r;
 	}
 
 	this.registerChatbox = function(channelid, element){
 		if(!this.chatboxes) this.chatboxes = [];
-		this.chatboxes.push({channel:channelid, element:element});
+		this.chatboxes.push({channel:channelid, element:element, collapse:false});
+	}
+
+	this.isCollapse = function(channelid){
+		var c = this.findChatbox(channelid);
 	}
 
 	this.getChatboxes = function(){
 		return this.chatboxes;
+	}
+
+	this.getNewAlertes = function(){
+		return alertesService.newAlertes();
 	}
 })

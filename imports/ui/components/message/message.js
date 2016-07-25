@@ -20,7 +20,16 @@ class Message{
 
 		this.helpers({
 			checkAlertes(){
-				return alertesService.checkAlertes();
+				var alertes = alertesService.checkAlertes();
+				var r = new Array();
+				console.log(alertes)
+				if(!chatService.getChatboxes().length) return alertes;
+				_.map(alertes, _.bind(function(item){
+							var cb = this.chatService.findChatbox(item.options.channelId, true);
+							if(cb) r.push(item);
+						}, this))
+
+				return r;
 			}
 		});
 	}

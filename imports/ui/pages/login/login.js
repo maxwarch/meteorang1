@@ -7,7 +7,7 @@ import { name as formValidators } from '../../../helpers/formValidators';
 import loginTpl from './login.html';
 
 class LoginCtrl{
-	constructor($scope, $reactive, $state, isLoggin){
+	constructor($scope, $reactive, $element, $state, isLoggin){
 		'ngInject'; 
 
 		if(isLoggin){
@@ -35,8 +35,12 @@ class LoginCtrl{
 
 		this.error = null;
 
-		$('body').removeClass('sidebar-mini');
-		$('body').addClass('login-page');
+		this.$onInit = function(){
+			$($element).find('[name=email]')[0].focus();
+
+			$('body').removeClass('sidebar-mini');
+			$('body').addClass('login-page');
+		}
 	}
 
 	login() {

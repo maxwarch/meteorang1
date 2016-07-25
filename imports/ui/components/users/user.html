@@ -1,1 +1,1 @@
-<a href="#" ng-click="user.newChat()"><i class="fa fa-circle-o"></i> {{ user.chatter.profile.pseudo }}</a>
+<a href="#" ng-click="user.newChat()"><i class="fa fa-circle" ng-class="{'online':user.chatter.status.online}"></i> {{ user.chatter.profile.pseudo }}</a>

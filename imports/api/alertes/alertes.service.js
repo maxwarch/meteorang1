@@ -1,5 +1,6 @@
 import angular from 'angular';
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
 import { Users } from '../users/index';
 import { Alertes } from './index';
@@ -12,18 +13,23 @@ export default angular.module(name, ['usersService'])
 .service(name, function (usersService) {
 	'ngInject';
 
+	var Auteurs = new Mongo.Collection('chatauteurs');
 	Meteor.subscribe('alertes');
 	
-	this.newAlerte = function(data){
+	this.insertAlerte = function(data){
 		return Alertes.batchInsert(data);
 	}
 
 	this.checkAlertes = function(){
-		return Alertes.find({ status:'open' }).map(function(doc){
-					doc.owner = Users.findOne(doc.owner);
+		return Alertes.find().map(function(doc){
+					doc.owner = Auteurs.findOne(doc.owner);
 					doc.message = Messages.findOne(doc.options.messageId)
 					return doc
 				})
+	}
+
+	this.newAlertes = function(){
+		return Alertes.find({ status:'open' }).count();
 	}
 
 	this.setRead = function(channelid){

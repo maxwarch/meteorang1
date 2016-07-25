@@ -1,4 +1,4 @@
 <ul class="treeview-menu" ng-show="users.online">
-	<li ng-repeat="user in users.online"><user chatter="user"></user></li>
+	<li ng-repeat="user in users.all"><user chatter="user"></user></li>
 	<li ng-show="users.online.length == 0">Pas d'utilisateur en ligne</li>
 </ul>

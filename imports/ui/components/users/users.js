@@ -22,6 +22,9 @@ class Users{
 			online(){
 				return usersService.online();
 			},
+			all(){
+				return usersService.all();
+			},
 			isLoggedIn(){
 				return usersService.isLoggedIn();
 			}
